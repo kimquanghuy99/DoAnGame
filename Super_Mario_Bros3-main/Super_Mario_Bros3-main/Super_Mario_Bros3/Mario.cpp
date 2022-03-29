@@ -172,12 +172,12 @@ void CMario::SetState(int state)
 		nx = -1;
 		break;
 	case MARIO_STATE_WALKING_DOWN:
-		vy = MARIO_WALKING_SPEED;
+		vy = -MARIO_WALKING_SPEED;
 		nx = 1;
 		break;
 	case MARIO_STATE_JUMP:
 		// TODO: need to check if Mario is *current* on a platform before allowing to jump again
-		vy = -MARIO_JUMP_SPEED_Y;
+		vy = MARIO_JUMP_SPEED_Y;
 		break;
 	case MARIO_STATE_IDLE:
 		vx = 0;
