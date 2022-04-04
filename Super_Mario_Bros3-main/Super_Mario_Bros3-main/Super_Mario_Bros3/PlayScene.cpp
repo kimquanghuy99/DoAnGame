@@ -56,14 +56,16 @@ void CPlayScene::_ParseSection_SPRITES(string line)
 {
 	vector<string> tokens = split(line);
 
-	if (tokens.size() < 6) return; // skip invalid lines
+	if (tokens.size() < 8) return; // skip invalid lines
 
 	int ID = atoi(tokens[0].c_str());
 	int l = atoi(tokens[1].c_str());
 	int t = atoi(tokens[2].c_str());
 	int r = atoi(tokens[3].c_str());
 	int b = atoi(tokens[4].c_str());
-	int texID = atoi(tokens[5].c_str());
+	int flip_X = atoi(tokens[5].c_str());;
+	int flip_Y = atoi(tokens[6].c_str());;
+	int texID = atoi(tokens[7].c_str());
 
 	LPDIRECT3DTEXTURE9 tex = CTextures::GetInstance()->Get(texID);
 	if (tex == NULL)
@@ -71,8 +73,7 @@ void CPlayScene::_ParseSection_SPRITES(string line)
 		DebugOut(L"[ERROR] Texture ID %d not found!\n", texID);
 		return;
 	}
-
-	CSprites::GetInstance()->Add(ID, l, t, r, b, tex);
+	CSprites::GetInstance()->Add(ID, l, t, r, b, flip_X, flip_Y, tex);
 }
 
 void CPlayScene::_ParseSection_ANIMATIONS(string line)
@@ -249,7 +250,7 @@ void CPlayScene::Update(DWORD dt)
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
 
-	// Update camera to follow mario
+	// Update camera to follow player
 	float cx, cy;
 	player->GetPosition(cx, cy);
 
@@ -257,7 +258,7 @@ void CPlayScene::Update(DWORD dt)
 	cx -= game->GetScreenWidth() / 2;
 	cy -= game->GetScreenHeight() / 2;
 
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	CGame::GetInstance()->SetCamPos(cx, -cy);
 }
 
 void CPlayScene::Render()
