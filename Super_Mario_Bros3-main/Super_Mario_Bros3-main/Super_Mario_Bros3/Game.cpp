@@ -16,6 +16,7 @@ CGame* CGame::__instance = NULL;
 */
 void CGame::Init(HWND hWnd)
 {
+	cam = new CCamera();
 	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
 	this->hWnd = hWnd;
@@ -35,8 +36,8 @@ void CGame::Init(HWND hWnd)
 	d3dpp.BackBufferHeight = r.bottom + 1;
 	d3dpp.BackBufferWidth = r.right + 1;
 
-	screen_height = r.bottom + 1;
-	screen_width = r.right + 1;
+	cam->screen_height = r.bottom + 1;
+	cam->screen_width = r.right + 1;
 
 	d3d->CreateDevice(
 		D3DADAPTER_DEFAULT,
@@ -71,7 +72,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	r.right = right;
 	r.bottom = bottom;
 
-	D3DXVECTOR2 p(x - cam_x, -y + cam_y);
+	D3DXVECTOR2 p(x - cam->cam_x, -y + cam->cam_y);
 	
 	int width = right - left;
 	int height = bottom - top;

@@ -11,13 +11,15 @@
 #include <dinput.h>
 
 #include "Scene.h"
-
+#include "Camera.h"
 using namespace std;
 
 #define KEYBOARD_BUFFER_SIZE 1024
 
 class CGame
 {
+	CCamera* cam;
+
 	static CGame* __instance;
 	HWND hWnd;									// Window handle
 
@@ -34,12 +36,6 @@ class CGame
 	DIDEVICEOBJECTDATA keyEvents[KEYBOARD_BUFFER_SIZE];		// Buffered keyboard data
 
 	LPKEYEVENTHANDLER keyHandler;
-
-	float cam_x = 50.0f;
-	float cam_y = 100.0f;
-
-	int screen_width;
-	int screen_height;
 
 	unordered_map<int, LPSCENE> scenes;
 	int current_scene;
@@ -60,9 +56,6 @@ public:
 	LPSCENE GetCurrentScene() { return scenes[current_scene]; }
 	void SwitchScene(int scene_id);
 
-	int GetScreenWidth() { return screen_width; }
-	int GetScreenHeight() { return screen_height; }
-
 	static void SweptAABB(
 		float ml,			// move left 
 		float mt,			// move top
@@ -82,13 +75,9 @@ public:
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; }
 
-	void SetCamPos(float x, float y) 
-		{
-		x -= GetScreenWidth() / 2;
-		y += GetScreenHeight() / 2; 
-		cam_x = x; 
-		cam_y = y; 
-		}
+	void SetCamPos(float x, float y) {
+		cam->SetCamPos(x, y);
+	}
 
 	static CGame* GetInstance();
 
