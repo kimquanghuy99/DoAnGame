@@ -6,6 +6,11 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Portal.h"
+#include "Cabay.h"
+#include "CuaCam.h"
+#include "Ong.h"
+#include "Soldier.h"
+#include "XeVan.h"
 
 using namespace std;
 
@@ -32,7 +37,11 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 #define OBJECT_TYPE_GOOMBA	2
 #define OBJECT_TYPE_KOOPAS	3
 #define OBJECT_TYPE_BRICK2	4
-
+#define OBJECT_TYPE_CABAY	5
+#define OBJECT_TYPE_CUACAM	6
+#define OBJECT_TYPE_ONG		7
+#define OBJECT_TYPE_SOLDIER	8
+#define OBJECT_TYPE_XEVAN	9
 
 #define OBJECT_TYPE_PORTAL	50
 
@@ -166,6 +175,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		int scene_id = atoi(tokens[6].c_str());
 		obj = new CPortal(x, y, r, b, scene_id);
 	}
+	case OBJECT_TYPE_CABAY: obj = new CCabay(); break;
+	case OBJECT_TYPE_CUACAM: obj = new CCuaCam(); break;
+	case OBJECT_TYPE_ONG: obj = new COng(); break;
+	case OBJECT_TYPE_SOLDIER: obj = new CSoldier(); break;
+	case OBJECT_TYPE_XEVAN: obj = new CXeVan(); break;
 	break;
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
