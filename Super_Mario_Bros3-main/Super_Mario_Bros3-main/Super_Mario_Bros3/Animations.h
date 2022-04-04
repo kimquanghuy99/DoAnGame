@@ -4,6 +4,7 @@
 #include <unordered_map>
 
 #include "Sprites.h"
+#include "Sprites.h"
 
 /*
 Sprite animation
