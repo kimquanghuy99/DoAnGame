@@ -118,6 +118,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	//DebugOut(L"[INFO] vx: %d\n", vx);
 }
 
 void CMario::Render()
@@ -185,7 +186,7 @@ void CMario::SetState(int state)
 	case MARIO_STATE_DIE:
 		vy = -MARIO_DIE_DEFLECT_SPEED;
 		break;
-	}
+	};
 }
 
 void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)

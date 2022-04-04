@@ -71,7 +71,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	r.right = right;
 	r.bottom = bottom;
 
-	D3DXVECTOR3 p(x - cam_x, -y + cam_y, 0);
+	D3DXVECTOR2 p(x - cam_x, -y + cam_y);
 	
 	int width = right - left;
 	int height = bottom - top;
@@ -79,10 +79,10 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	D3DXVECTOR2 center = D3DXVECTOR2((float)width / 2, (float)height / 2);
 	D3DXVECTOR2 scaling = D3DXVECTOR2((flipX ? -1 : 1), (flipY ? -1 : 1));
 	D3DXMATRIX matrix;
-	D3DXMatrixTransformation2D(&matrix, NULL, 0.0f, &scaling, &center, NULL, NULL);
+	D3DXMatrixTransformation2D(&matrix, &center, 0.0f, &scaling, NULL, NULL, &p);
 	spriteHandler->SetTransform(&matrix);
 
-	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->Draw(texture, &r, NULL, NULL, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	
 
 }

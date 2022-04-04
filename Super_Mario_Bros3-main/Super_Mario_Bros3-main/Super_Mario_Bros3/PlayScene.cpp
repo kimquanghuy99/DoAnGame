@@ -254,11 +254,10 @@ void CPlayScene::Update(DWORD dt)
 	float cx, cy;
 	player->GetPosition(cx, cy);
 
-	CGame* game = CGame::GetInstance();
-	cx -= game->GetScreenWidth() / 2;
-	cy -= game->GetScreenHeight() / 2;
 
-	CGame::GetInstance()->SetCamPos(cx, -cy);
+	CGame::GetInstance()->SetCamPos(cx, cy);
+	DebugOut(L"[INFO] Cx: %lf\n", cx);
+	DebugOut(L"[INFO] Cy: %lf\n", cy);
 }
 
 void CPlayScene::Render()
