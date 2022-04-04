@@ -12,7 +12,8 @@
 [SPRITES]
 #MAP
 1000001	1	1196	1609	1417	1
-#1000001	2	2	2375	274	1
+#Backround
+1000002	2	2	2375	274	1
 #Player
 # idle RIGHT
 110001	10	113	39	151	201
@@ -99,6 +100,7 @@
 [ANIMATIONS]
 #MAP
 1001	1000001	100
+1002	1000002	100
 #Player
 #idle RIGHT
 1101	110001	250	110002	250	110003	250	110004	250
@@ -156,6 +158,7 @@
 #1	400	401	402	403	500	501	502	503	599
 # BRICK 
 2	1001
+32	1002
 # QUESTION MARK BRICK 
 22	602
 # GOOMBA
@@ -164,17 +167,18 @@
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba
+#Brick 2
+4	0	312	32
 # BRICK 
 1	0	261	2
+
 # MARIO
-0	0	37	1
+0	0	87	1
 
 # GOOMBA
-2	200	50	3
-2	260	50	3
-2	320	50	3
-2	480	50	3
-2	500	50	3
+2	200	87	3
+2	260	87	3
+2	320	87	3
 
 
 # --- platform (hint: I created the list using Excel!) ----
