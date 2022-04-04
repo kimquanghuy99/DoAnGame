@@ -255,9 +255,9 @@ void CPlayScene::Update(DWORD dt)
 
 	CGame* game = CGame::GetInstance();
 	cx -= game->GetScreenWidth() / 2;
-	cy -= game->GetScreenHeight() / 2;
+	cy += game->GetScreenHeight() / 2;
 
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	CGame::GetInstance()->SetCamPos(cx,cy);
 }
 
 void CPlayScene::Render()
@@ -307,6 +307,8 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 		mario->SetState(MARIO_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_DOWN))
 		mario->SetState(MARIO_STATE_WALKING_DOWN);
+	else if (game->IsKeyDown(DIK_UP))
+		mario->SetState(MARIO_STATE_WALKING_UP);
 	else if (game->IsKeyDown(DIK_LEFT))
 		mario->SetState(MARIO_STATE_WALKING_LEFT);
 	else
