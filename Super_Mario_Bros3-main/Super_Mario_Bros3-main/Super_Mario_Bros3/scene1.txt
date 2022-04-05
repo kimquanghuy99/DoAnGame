@@ -162,7 +162,7 @@
 # QUESTION MARK BRICK 
 22	602
 # GOOMBA
-3	701	702
+3	701	702	11501
 
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
@@ -173,7 +173,7 @@
 1	0	261	2
 
 # MARIO
-0	0	87	1
+0	0	107	1
 
 # GOOMBA
 2	200	87	3

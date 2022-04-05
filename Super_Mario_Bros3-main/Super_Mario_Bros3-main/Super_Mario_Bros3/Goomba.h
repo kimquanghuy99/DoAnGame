@@ -2,7 +2,7 @@
 #pragma once
 #include "GameObject.h"
 
-#define GOOMBA_WALKING_SPEED 0.05f;
+#define GOOMBA_WALKING_SPEED 0.15f;
 
 #define GOOMBA_BBOX_WIDTH 16
 #define GOOMBA_BBOX_HEIGHT 15
@@ -13,6 +13,8 @@
 
 #define GOOMBA_ANI_WALKING 0
 #define GOOMBA_ANI_DIE 1
+#define GOOMBA_ANI_WALKING_RIGHT 2
+
 
 class CGoomba : public CGameObject
 {

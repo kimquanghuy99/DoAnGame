@@ -31,8 +31,8 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		x = 0; vx = -vx;
 	}
 
-	if (vx > 0 && x > 290) {
-		x = 290; vx = -vx;
+	if (vx > 0 && x > 400) {
+		x = 400; vx = -vx;
 	}
 	/*if (vy < 0 && y < 0) {
 		y = 0; vy = -vy;
@@ -46,6 +46,10 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CGoomba::Render()
 {
 	int ani = GOOMBA_ANI_WALKING;
+	if (vx > 0)
+	{
+		ani = GOOMBA_ANI_WALKING_RIGHT;
+	}
 	if (state == GOOMBA_STATE_DIE) {
 		ani = GOOMBA_ANI_DIE;
 	}
