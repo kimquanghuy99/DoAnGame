@@ -1,0 +1,74 @@
+# id	file_path	transparent_color_r	g	b
+[TEXTURES]
+100	textures\Chowmein Conga.png	3	26	110
+200	textures\Player.png	3	26	110
+201	textures\playerRIU.png	153	217	234
+250	textures\Player2.png	3	26	110
+1	textures\Map.png	248	0	248
+0	textures\Background\Beach.png	248	0	248
+
+# id	left	top	right	bottom	texture_id
+[SPRITES]
+# === PARALLAX ===
+420001	2	2	2375	274	0
+# === BACKGROUND ===
+360001	1	1196	1609	1417	0
+# === ANIMATED OBJECT ===
+#WAVE EFFECT 1
+390001	2	669	565	693	0
+390002	2	735	565	759	0
+390003	2	801	565	825	0
+390004	2	867	565	891	0
+390005	2	933	565	957	0
+390006	2	999	565	1023	0
+390007	2	1065	565	1089	0
+390008	2	1131	565	1155	0
+#WAVE EFFECT 2
+390101	2	694	565	734	0
+390102	2	760	565	800	0
+390103	2	826	565	866	0
+390104	2	892	565	932	0
+390105	2	958	565	998	0
+390106	2	1024	565	1064	0
+390107	2	1090	565	1130	0
+390108	2	1156	565	1196	0
+# ani_id	sprite1_id	time1	sprite2_id	time2	...
+[ANIMATIONS]
+# === PARALLAX ===
+4200	420001	100
+# === BACKGROUND ===
+3600	360001	100
+# === ANIMATED OBJECT ===
+#WAVE EFFECT 1
+3900	390001	100	390002	100	390003	100	390004	100	390005	100	390006	100	390007	100	390008	100
+#WAVE EFFECT 2
+3901	390101	100	390102	100	390103	100	390104	100	390105	100	390106	100	390107	100	390108	100
+
+# id	ani1	ani2	ani3
+[ANIMATION_SETS]
+# === PARALLAX ===
+42	4200
+# === BACKGROUND ===
+36	3600
+# === ANIMATED OBJECT ===
+#WAVE EFFECT 1, WAVE EFFECT 2,
+39	3900	3901
+
+# type	x	y	ani_set_id	extra_settings per object type
+[OBJECTS]
+# === PARALLAX ===
+42	0	289	42
+# === BACKGROUND ===
+# type	x	y	ani_set_id	width
+36	0	222	36	1608
+# === ANIMATED OBJECT ===
+# type	x	y	ani_set_id	ani_obj_id (type_id)	state	
+#WAVE EFFECT 1
+39	0	64	39	0	0
+#WAVE EFFECT 2
+39	0	40	39	1	0
+
+# --- SCENE PORTAL ----
+# type	l	t	ani_set_id	r	b	scene_id
+50	300	98	0	316	150	2
+

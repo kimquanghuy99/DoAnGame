@@ -12,7 +12,7 @@ CMario::CMario(float x, float y) : CGameObject()
 {
 	level = MARIO_LEVEL_BIG;
 	untouchable = 0;
-	SetState(MARIO_STATE_IDLE);
+	SetState(MARIO_STATE_IDLE_RIGHT);
 
 	start_x = x;
 	start_y = y;
@@ -123,32 +123,20 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CMario::Render()
 {
 	int ani = -1;
-	if (state == MARIO_STATE_DIE)
-		ani = MARIO_ANI_DIE;
+	if (state == MARIO_STATE_IDLE_RIGHT)
+		ani = MARIO_STATE_IDLE_RIGHT;
 	else
 		if (level == MARIO_LEVEL_BIG)
 		{
 			if (vx == 0)
 			{
-				if (nx > 0) ani = MARIO_ANI_BIG_IDLE_RIGHT;
-				else ani = MARIO_ANI_BIG_IDLE_LEFT;
+				if (nx > 0) ani = MARIO_ANI_IDLE_RIGHT;
+				else ani = MARIO_ANI_IDLE_LEFT;
 			}
 			else if (vx > 0)
-				ani = MARIO_ANI_BIG_WALKING_RIGHT;
-			else ani = MARIO_ANI_BIG_WALKING_LEFT;
+				ani = MARIO_ANI_WALKING_RIGHT;
+			else ani = MARIO_ANI_WALKING_LEFT;
 		}
-		else if (level == MARIO_LEVEL_SMALL)
-		{
-			if (vx == 0)
-			{
-				if (nx > 0) ani = MARIO_ANI_SMALL_IDLE_RIGHT;
-				else ani = MARIO_ANI_SMALL_IDLE_LEFT;
-			}
-			else if (vx > 0)
-				ani = MARIO_ANI_SMALL_WALKING_RIGHT;
-			else ani = MARIO_ANI_SMALL_WALKING_LEFT;
-		}
-
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
@@ -183,7 +171,7 @@ void CMario::SetState(int state)
 		// TODO: need to check if Mario is *current* on a platform before allowing to jump again
 		vy = -MARIO_JUMP_SPEED_Y;
 		break;
-	case MARIO_STATE_IDLE:
+	case MARIO_STATE_IDLE_RIGHT:
 		vx = 0;
 		vy = 0;
 		break;
@@ -215,7 +203,7 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 */
 void CMario::Reset()
 {
-	SetState(MARIO_STATE_IDLE);
+	SetState(MARIO_STATE_IDLE_RIGHT);
 	SetLevel(MARIO_LEVEL_BIG);
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
