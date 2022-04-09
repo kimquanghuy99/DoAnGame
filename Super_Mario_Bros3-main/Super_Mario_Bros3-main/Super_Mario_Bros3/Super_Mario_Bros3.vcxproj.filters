@@ -21,11 +21,11 @@
     <Filter Include="Bullet">
       <UniqueIdentifier>{b955dccf-2ca9-4ca7-a51d-06822de4b9ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Manager">
+      <UniqueIdentifier>{a989c223-e3ab-4e53-a511-ebff2170423f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="Mario.h">
       <Filter>Header</Filter>
     </ClInclude>
@@ -35,34 +35,10 @@
     <ClInclude Include="Koopas.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayScene.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick2.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="XeVan.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Soldier.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="Animations.h">
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEventHandler.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
@@ -70,9 +46,6 @@
     </ClInclude>
     <ClInclude Include="Sprites.h">
       <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="define.h">
-      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>Game Object</Filter>
@@ -92,14 +65,29 @@
     <ClInclude Include="AnimatedBackground.h">
       <Filter>Effect &amp; Background</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Game Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="define.h">
+      <Filter>Game Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEventHandler.h">
+      <Filter>Game Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Game Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Game Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Mario.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -110,21 +98,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Goomba.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Koopas.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Animations.cpp">
@@ -150,6 +123,21 @@
     </ClCompile>
     <ClCompile Include="AnimatedBackground.cpp">
       <Filter>Effect &amp; Background</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Game Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Game Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Game Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Game Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

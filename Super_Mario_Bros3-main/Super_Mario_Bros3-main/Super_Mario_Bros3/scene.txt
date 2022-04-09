@@ -1,16 +1,14 @@
 # id	file_path	transparent_color_r	g	b
 [TEXTURES]
-100	textures\Chowmein Conga.png	3	26	110
-200	textures\Player.png	3	26	110
-201	textures\playerRIU.png	153	217	234
-250	textures\Player2.png	3	26	110
-1	textures\Map.png	248	0	248
 0	textures\Background\Beach.png	248	0	248
+100	textures\Character\MacroRossi.png	0	0	0
 
 # id	left	top	right	bottom	texture_id
 [SPRITES]
+# === BODY ===
+
 # === PARALLAX ===
-420001	2	2	2375	274	0
+430001	2	2	2375	274	0
 # === BACKGROUND ===
 360001	1	1196	1609	1417	0
 # === ANIMATED OBJECT ===
@@ -35,7 +33,7 @@
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
 # === PARALLAX ===
-4200	420001	100
+4300	430001	100
 # === BACKGROUND ===
 3600	360001	100
 # === ANIMATED OBJECT ===
@@ -47,7 +45,7 @@
 # id	ani1	ani2	ani3
 [ANIMATION_SETS]
 # === PARALLAX ===
-42	4200
+43	4300
 # === BACKGROUND ===
 36	3600
 # === ANIMATED OBJECT ===
@@ -57,16 +55,16 @@
 # type	x	y	ani_set_id	extra_settings per object type
 [OBJECTS]
 # === PARALLAX ===
-42	0	289	42
+43	0	289	43
 # === BACKGROUND ===
 # type	x	y	ani_set_id	width
 36	0	222	36	1608
 # === ANIMATED OBJECT ===
-# type	x	y	ani_set_id	ani_obj_id (type_id)	state	
+# type	x	y	ani_set_id	ani_obj_id (type_id)
 #WAVE EFFECT 1
-39	0	64	39	0	0
+39	0	64	39	0
 #WAVE EFFECT 2
-39	0	40	39	1	0
+39	0	40	39	1
 
 # --- SCENE PORTAL ----
 # type	l	t	ani_set_id	r	b	scene_id

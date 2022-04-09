@@ -2,10 +2,8 @@
 #include "Background.h"
 #include "AnimatedBackground.h"
 #include "Parallax.h"
-#include "Brick2.h"
 #include "Mario.h"
 #include "Goomba.h"
-#include "Koopas.h"
 #include "Portal.h"
 
 //Screen
@@ -34,15 +32,13 @@
 #define OBJECT_TYPE_BRICK2	4
 #define OBJECT_TYPE_BACKGROUND	36
 #define OBJECT_TYPE_ANIMATED_BACKGROUND	39
-#define OBJECT_TYPE_PARALLAX	42
+#define OBJECT_TYPE_PARALLAX	43
 
 #define OBJECT_TYPE_PORTAL	50
 
 #define MAX_SCENE_LINE 1024
 
 //animated background
-#define STATE_IDLE	0
-#define ANI_IDLE	0
 #define WAVE_EFFECT_1	0
 #define WAVE_EFFECT_2	1
 

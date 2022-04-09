@@ -7,8 +7,8 @@ CParallax::CParallax()
 
 CParallax::CParallax(float start_x, float start_y)
 {
-	x = start_x;
-	y = start_y;
+	this->x = start_x;
+	this->y = start_y;
 	SetState(PARALLAX_STATE_IDLE);
 }
 
@@ -41,7 +41,6 @@ void CParallax::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CParallax::Render()
 {
 	animation_set->at(0)->Render(x, y);
-	//RenderBoundingBox();
 }
 
 void CParallax::SetState(int state)

@@ -61,27 +61,7 @@ void CGame::Init(HWND hWnd)
 /*
 	Utility function to wrap LPD3DXSPRITE::Draw
 */
-void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
-{
-	D3DXVECTOR2 p(x - cam->GetCamPosX(), -y + cam->GetCamPosY());
-	RECT r;
-	r.left = left;
-	r.top = top;
-	r.right = right;
-	r.bottom = bottom;
-
-	int width = right - left;
-	int height = bottom - top;
-
-	D3DXMATRIX matrix;
-	D3DXMatrixTransformation2D(&matrix,NULL, 0.0f, NULL, NULL, NULL, &p);
-	spriteHandler->SetTransform(&matrix);
-
-
-	spriteHandler->Draw(texture, &r, NULL, NULL, D3DCOLOR_ARGB(alpha, 255, 255, 255));
-}
-
-void CGame::DrawFlipX(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
+void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, bool flipX, int alpha)
 {
 	D3DXVECTOR2 p(x - cam->GetCamPosX(), -y + cam->GetCamPosY());
 	RECT r;
@@ -94,9 +74,9 @@ void CGame::DrawFlipX(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, in
 	int height = bottom - top;
 
 	D3DXVECTOR2 center = D3DXVECTOR2((float)width / 2, (float)height / 2);
-	D3DXVECTOR2 scaling = D3DXVECTOR2(-1, 1);
+	D3DXVECTOR2 scaling = D3DXVECTOR2(flipX? -1 : 1, 1);
 	D3DXMATRIX matrix;
-	D3DXMatrixTransformation2D(&matrix, &center, 0.0f, &scaling, NULL, NULL, &p);
+	D3DXMatrixTransformation2D(&matrix, &center, NULL, &scaling, NULL, NULL, &p);
 	spriteHandler->SetTransform(&matrix);
 
 	spriteHandler->Draw(texture, &r, NULL, NULL, D3DCOLOR_ARGB(alpha, 255, 255, 255));

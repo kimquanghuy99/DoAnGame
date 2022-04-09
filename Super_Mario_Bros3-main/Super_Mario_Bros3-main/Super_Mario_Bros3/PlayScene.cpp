@@ -134,24 +134,22 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		int w = atof(tokens[4].c_str());
 		obj = new CBackground(x, y, w);
 		game->SetBoundary(w, y);
-		DebugOut(L"[INFO] background object created!\n");
 	}
 	break;
 	case OBJECT_TYPE_ANIMATED_BACKGROUND:
 	{
 		int type = atof(tokens[4].c_str());
-		int state = atof(tokens[5].c_str());
-		obj = new CAnimatedBackground(x, y, type, state);
+		obj = new CAnimatedBackground(x, y, type);
 	}
 	break;
 	case OBJECT_TYPE_PARALLAX:
 	{
+		DebugOut(L"[INFO] parallax");
+		DebugOut(L"[INFO] x: %d, y %d", atof(tokens[1].c_str()), atof(tokens[2].c_str()));
 		obj = new CParallax(x, y);
+		DebugOut(L"[INFO] x: %d, y %d", x, y);
 	}
 	break;
-	
-	case OBJECT_TYPE_BRICK2: obj = new CBrick2(); break;
-	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;
 	case OBJECT_TYPE_PORTAL:
 	{
 		float r = atof(tokens[4].c_str());

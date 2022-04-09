@@ -149,12 +149,10 @@
     <ClInclude Include="Animations.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Background.h" />
-    <ClInclude Include="Brick2.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Parallax.h" />
-    <ClInclude Include="Soldier.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
@@ -167,16 +165,13 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
-    <ClInclude Include="XeVan.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimatedBackground.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Background.cpp" />
-    <ClCompile Include="Brick2.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Goomba.cpp" />
-    <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Parallax.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Portal.cpp" />
