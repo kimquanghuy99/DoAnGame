@@ -1,13 +1,6 @@
 #pragma once
 #include "GameObject.h"
 
-#define BODY_WALKING_SPEED		0.15f 
-//0.1f
-#define BODY_JUMP_SPEED_Y		0.5f
-#define BODY_JUMP_DEFLECT_SPEED 0.2f
-#define BODY_GRAVITY			0.002f
-#define BODY_DIE_DEFLECT_SPEED	 0.5f
-
 #define BODY_STATE_DROP_LEFT		0
 #define BODY_STATE_DROP_RIGHT		1
 #define BODY_STATE_IDLE_LEFT		2
@@ -22,14 +15,9 @@
 #define BODY_ANI_DROP		0
 #define BODY_ANI_IDLE		1
 
-#define	BODY_LEVEL_SMALL	1
-#define	BODY_LEVEL_BIG		2
-
-#define BODY_BIG_BBOX_WIDTH  15
-#define BODY_BIG_BBOX_HEIGHT 27
-
 class CBody : public CGameObject
 {
+	int height;
 	static CBody* __instance;
 public:
 	CBody(float x = 0.0f, float y = 0.0f);
@@ -37,7 +25,7 @@ public:
 	virtual void Render();
 	void SetPosition(float x, float y);
 	void SetState(int state);
-
+	int GetHeight() { return this->height; }
 	static CBody* GetInstance();
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

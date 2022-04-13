@@ -112,9 +112,9 @@
 # === BACKGROUND === (type, x, y, ani_set_id, width)
 36	0	222	36	1608
 # === MARCO ROSSI ===
-10	10	100	0	0
+10	10	100	0	3
 # === BODY ===
-#11	10	100	11
+11	10	100	11
 # === FEET ===
 #12	14	80	12
 # === ANIMATED OBJECT ===

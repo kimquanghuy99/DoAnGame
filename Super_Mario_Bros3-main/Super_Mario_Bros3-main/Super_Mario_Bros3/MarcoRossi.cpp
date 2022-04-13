@@ -14,16 +14,16 @@ CMarcoRossi::CMarcoRossi(float x, float y, int state) : CGameObject()
 {
 	this->x = x;
 	this->y = y;
-	this->state = state;
 
-	this->body = NULL;
-	this->feet = NULL;
+	this->body = new CBody(x, y);
+	this->feet = new CFeet(x, y);
+
+	SetState(state);
 	__instance = this;
 }
 
 void CMarcoRossi::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
 	// Simple fall down
@@ -43,6 +43,7 @@ void CMarcoRossi::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		x += dx;
 		y += dy;
+		body->SetPosition(x, y);
 	}
 	else
 	{
@@ -82,7 +83,6 @@ void CMarcoRossi::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (goomba->GetState() != GOOMBA_STATE_DIE)
 					{
 						goomba->SetState(GOOMBA_STATE_DIE);
-						vy = -BODY_JUMP_DEFLECT_SPEED;
 					}
 				}
 				else if (e->nx != 0)
@@ -104,8 +104,10 @@ void CMarcoRossi::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CMarcoRossi::Render()
 {
+	//int ani = body->GetState();
 	//body = CBody::GetInstance();
-	//body->animation_set->at(0)->Render(x, y, false, 255);
+	//body->Render();
+	//body->animation_set->at(1)->Render(x, y, false, 255);
 	//animation_set->at(ani)->Render(x, y, nx > 0 ? false : true, alpha);
 }
 
@@ -116,9 +118,34 @@ void CMarcoRossi::SetState(int state)
 	switch (state)
 	{
 	case MARCO_ROSSI_STATE_PARACHUTE:
-		vy = -BODY_GRAVITY;
+		body->SetState(BODY_STATE_IDLE_RIGHT);
+		vy = MARCO_ROSSI_GRAVITY;
+		vx = 0;
+		nx = 1;
+		break;
+	case MARCO_ROSSI_STATE_IDLE_LEFT:
+		body->SetState(BODY_STATE_IDLE_LEFT);
+		vy = 0;
 		vx = 0;
 		nx = -1;
+		break;
+	case MARCO_ROSSI_STATE_IDLE_RIGHT:
+		body->SetState(BODY_STATE_IDLE_RIGHT);
+		vy = 0;
+		vx = 0;
+		nx = 1;
+		break;
+	case MARCO_ROSSI_STATE_WALKING_LEFT:
+		body->SetState(BODY_STATE_IDLE_LEFT);
+		vy = 0;
+		vx = -MARCO_ROSSI_WALKING_SPEED;
+		nx = -1;
+		break;
+	case MARCO_ROSSI_STATE_WALKING_RIGHT:
+		body->SetState(BODY_STATE_IDLE_RIGHT);
+		vy = 0;
+		vx = MARCO_ROSSI_WALKING_SPEED;
+		nx = 1;
 		break;
 	//case BODY_STATE_DROP_RIGHT:
 	//	vy = -BODY_GRAVITY;
@@ -175,12 +202,8 @@ CMarcoRossi* CMarcoRossi::GetInstance()
 	return __instance;
 }
 
-void CMarcoRossi::SetBodyPosition(float x, float y)
+CBody* CMarcoRossi::GetBody()
 {
-	body = CBody::GetInstance();
-
-}
-void CMarcoRossi::SetFeetPosition(float x, float y)
-{
-
+	//body = CBody::GetInstance();
+	return body;
 }

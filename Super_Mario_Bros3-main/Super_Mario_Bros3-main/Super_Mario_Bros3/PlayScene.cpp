@@ -4,8 +4,6 @@
 #include "PlayScene.h"
 #include "Utils.h"
 
-
-
 using namespace std;
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath) : CScene(id, filePath)
@@ -131,12 +129,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			player = (CMarcoRossi*)obj;
 		}
 		break;
-		//case OBJECT_TYPE_BODY:
-		//{
-			//player = GetPlayer();
-			//obj = new CBody(x, y);
-		//}
-		//break;
+		case OBJECT_TYPE_BODY:
+		{
+			obj = player->GetBody();
+		}
+		break;
 		//case OBJECT_TYPE_FEET:
 		//{
 		//	CFeet* feet = CFeet::GetInstance();
@@ -292,12 +289,18 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		player->SetState(BODY_STATE_IDLE_RIGHT);
+		player->SetState(MARCO_ROSSI_STATE_IDLE_RIGHT);
 		break;
 	case DIK_A:
 		break;
+	case DIK_LEFT:
+		player->SetState(MARCO_ROSSI_STATE_WALKING_LEFT);
+		break;
 	case DIK_RIGHT:
-		player->SetState(BODY_STATE_WALKING_RIGHT);
+		player->SetState(MARCO_ROSSI_STATE_WALKING_RIGHT);
+		break;
+	case DIK_UP:
+		player->SetState(MARCO_ROSSI_STATE_PARACHUTE);
 		break;
 	}
 }

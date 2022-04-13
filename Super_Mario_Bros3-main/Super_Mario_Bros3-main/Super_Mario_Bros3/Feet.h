@@ -34,9 +34,8 @@
 class CFeet : public CGameObject
 {
 	static CFeet* __instance;
-	CFeet(float x = 0.0f, float y = 0.0f);
-
 public:
+	CFeet(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 

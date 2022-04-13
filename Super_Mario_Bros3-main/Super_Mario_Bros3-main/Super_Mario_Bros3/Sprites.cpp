@@ -20,19 +20,10 @@ CSprites* CSprites::GetInstance()
 	return __instance;
 }
 
-void CSprite::Draw(float x, float y, bool flipX, int alpha)
+int CSprite::Draw(float x, float y, bool flipX, int alpha)
 {
 	CGame* game = CGame::GetInstance();
 	game->Draw(x, y, texture, left, top, right, bottom, flipX, alpha);
-}
-
-int CSprite::getWidth()
-{
-	return right - left;
-}
-
-int CSprite::getHeight()
-{
 	return bottom - top;
 }
 

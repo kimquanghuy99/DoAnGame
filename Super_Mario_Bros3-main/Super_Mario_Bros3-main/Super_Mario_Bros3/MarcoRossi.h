@@ -7,15 +7,15 @@
 #define MARCO_ROSSI_WALKING_SPEED		0.15f
 #define MARCO_ROSSI_JUMP_SPEED_Y		0.5f
 #define MARCO_ROSSI_JUMP_DEFLECT_SPEED 0.2f
-#define MARCO_ROSSI_GRAVITY			0.002f
+#define MARCO_ROSSI_GRAVITY			0.01f//0.002f
 
 #define MARCO_ROSSI_STATE_PARACHUTE		0
-#define MARCO_ROSSI_DROP_LEFT	1
-#define MARCO_ROSSI_DROP_RIGHT	2
-#define MARCO_ROSSI_IDLE_LEFT	3
-#define MARCO_ROSSI_IDLE_RIGHT	4
-#define MARCO_ROSSI_WALKING_LEFT	5
-#define MARCO_ROSSI_WALKING_RIGHT	6
+#define MARCO_ROSSI_STATE_DROP_LEFT	1
+#define MARCO_ROSSI_STATE_DROP_RIGHT	2
+#define MARCO_ROSSI_STATE_IDLE_LEFT	3
+#define MARCO_ROSSI_STATE_IDLE_RIGHT	4
+#define MARCO_ROSSI_STATE_WALKING_LEFT	5
+#define MARCO_ROSSI_STATE_WALKING_RIGHT	6
 
 #define MARCO_ROSSI_STATE_JUMP		7
 
@@ -33,6 +33,8 @@ public:
 
 	void SetBodyPosition(float x, float y);
 	void SetFeetPosition(float x, float y);
+
+	CBody* GetBody();
 
 	//int GetBodyHeight();
 	//void SetFeetPosition(float x, float y);
