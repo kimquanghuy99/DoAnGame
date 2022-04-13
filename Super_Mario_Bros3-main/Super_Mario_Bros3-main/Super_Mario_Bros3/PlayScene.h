@@ -2,14 +2,19 @@
 #include "Game.h"
 #include "Scene.h"
 #include "GameObject.h"
+
 #include "Textures.h"
 #include "define.h"
+#include "Background.h"
+#include "AnimatedBackground.h"
+#include "Parallax.h"
+#include "MarcoRossi.h"
+#include "Portal.h"
 
 class CPlayScene : public CScene
 {
 protected:
-	CMario* player;					// A play scene has to have player, right? 
-
+	CMarcoRossi* player;		// A play scene has to have player, right?					
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_TEXTURES(string line);
@@ -27,8 +32,7 @@ public:
 	virtual void Render();
 	virtual void Unload();
 
-	CMario* GetPlayer() { return player; }
-
+	CMarcoRossi* GetPlayer() { return player; }
 	//friend class CPlayScenceKeyHandler;
 };
 

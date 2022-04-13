@@ -1,6 +1,5 @@
 #pragma once
 #include "GameObject.h"
-#include "define.h"
 
 class CAnimatedBackground : public CGameObject
 {

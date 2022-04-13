@@ -4,7 +4,6 @@
 #include <unordered_map>
 
 #include "Sprites.h"
-#include "Sprites.h"
 
 /*
 Sprite animation
@@ -18,6 +17,8 @@ public:
 	CAnimationFrame(LPSPRITE sprite, int time) { this->sprite = sprite; this->time = time; }
 	DWORD GetTime() { return time; }
 	LPSPRITE GetSprite() { return sprite; }
+	int getWidth(int sprite_id);
+	int getHeight(int sprite_id);
 };
 
 typedef CAnimationFrame* LPANIMATION_FRAME;

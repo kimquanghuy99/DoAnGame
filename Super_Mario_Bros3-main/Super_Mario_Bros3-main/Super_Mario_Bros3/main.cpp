@@ -20,10 +20,6 @@
 #include "GameObject.h"
 #include "Textures.h"
 
-#include "Mario.h"
-#include "Background.h"
-#include "Goomba.h"
-
 #include "PlayScene.h"
 
 CGame* game;

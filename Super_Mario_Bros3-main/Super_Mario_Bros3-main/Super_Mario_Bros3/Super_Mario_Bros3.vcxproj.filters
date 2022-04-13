@@ -26,9 +26,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Mario.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="Goomba.h">
       <Filter>Header</Filter>
     </ClInclude>
@@ -59,9 +56,6 @@
     <ClInclude Include="Ground.h">
       <Filter>Game Object</Filter>
     </ClInclude>
-    <ClInclude Include="Portal.h">
-      <Filter>Game Object</Filter>
-    </ClInclude>
     <ClInclude Include="AnimatedBackground.h">
       <Filter>Effect &amp; Background</Filter>
     </ClInclude>
@@ -86,11 +80,20 @@
     <ClInclude Include="Scene.h">
       <Filter>Game Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Body.h">
+      <Filter>Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Feet.h">
+      <Filter>Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MarcoRossi.h">
+      <Filter>Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -138,6 +141,15 @@
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Game Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Body.cpp">
+      <Filter>Game Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Feet.cpp">
+      <Filter>Game Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MarcoRossi.cpp">
+      <Filter>Game Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

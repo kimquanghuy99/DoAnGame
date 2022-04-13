@@ -2,31 +2,27 @@
 #include <assert.h>
 #include "Utils.h"
 
-#include "Mario.h"
+#include "Feet.h"
 #include "Game.h"
 
 #include "Goomba.h"
 #include "Portal.h"
 
-CMario::CMario(float x, float y) : CGameObject()
-{
-	level = MARIO_LEVEL_BIG;
-	untouchable = 0;
-	SetState(MARIO_STATE_IDLE_RIGHT);
+CFeet* CFeet::__instance = NULL;
 
-	start_x = x;
-	start_y = y;
+CFeet::CFeet(float x, float y) : CGameObject()
+{
 	this->x = x;
 	this->y = y;
 }
 
-void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CFeet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	//vy += MARIO_GRAVITY * dt;
+	//vy += FEET_GRAVITY * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -34,15 +30,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	coEvents.clear();
 
 	// turn off collision when die 
-	if (state != MARIO_STATE_DIE)
+	if (state != FEET_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
-
-	// reset untouchable timer if untouchable time has passed
-	if (GetTickCount() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
-	{
-		untouchable_start = 0;
-		untouchable = 0;
-	}
 
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
@@ -88,24 +77,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (goomba->GetState() != GOOMBA_STATE_DIE)
 					{
 						goomba->SetState(GOOMBA_STATE_DIE);
-						vy = -MARIO_JUMP_DEFLECT_SPEED;
+						vy = -FEET_JUMP_DEFLECT_SPEED;
 					}
 				}
 				else if (e->nx != 0)
 				{
-					if (untouchable == 0)
-					{
-						if (goomba->GetState() != GOOMBA_STATE_DIE)
-						{
-							if (level > MARIO_LEVEL_SMALL)
-							{
-								level = MARIO_LEVEL_SMALL;
-								StartUntouchable();
-							}
-							else
-								SetState(MARIO_STATE_DIE);
-						}
-					}
 				}
 			} // if Goomba
 			else if (dynamic_cast<CPortal*>(e->obj))
@@ -120,92 +96,106 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void CMario::Render()
+void CFeet::Render()
 {
 	int ani = -1;
-	if (state == MARIO_STATE_IDLE_RIGHT)
-		ani = MARIO_STATE_IDLE_RIGHT;
-	else
-		if (level == MARIO_LEVEL_BIG)
-		{
-			if (vx == 0)
-			{
-				if (nx > 0) ani = MARIO_ANI_IDLE_RIGHT;
-				else ani = MARIO_ANI_IDLE_LEFT;
-			}
-			else if (vx > 0)
-				ani = MARIO_ANI_WALKING_RIGHT;
-			else ani = MARIO_ANI_WALKING_LEFT;
-		}
-	int alpha = 255;
-	if (untouchable) alpha = 128;
+	switch (state)
+	{
+	case FEET_STATE_DROP_LEFT:
+		ani = FEET_ANI_DROP;
+		break;
+	case FEET_STATE_DROP_RIGHT:
+		ani = FEET_ANI_DROP;
+		break;
+	case FEET_STATE_IDLE_LEFT:
+		ani = FEET_ANI_IDLE;
+		break;
+	case FEET_STATE_IDLE_RIGHT:
+		ani = FEET_ANI_IDLE;
+		break;
+	case FEET_STATE_WALKING_LEFT:
+		ani = FEET_ANI_IDLE;
+		break;
+	case FEET_STATE_WALKING_RIGHT:
+		ani = FEET_ANI_IDLE;
+		break;
 
-	animation_set->at(ani)->Render(x, y, alpha);
+	}
+	int alpha = 255;
+
+	animation_set->at(ani)->Render(x, y, nx > 0 ? false : true, alpha);
 
 	//RenderBoundingBox();
 }
 
-void CMario::SetState(int state)
+void CFeet::SetState(int state)
 {
 	CGameObject::SetState(state);
 
 	switch (state)
 	{
-	case MARIO_STATE_WALKING_RIGHT:
-		vx = MARIO_WALKING_SPEED;
-		nx = 1;
-		break;
-	case MARIO_STATE_WALKING_LEFT:
-		vx = -MARIO_WALKING_SPEED;
+	case FEET_STATE_DROP_LEFT:
+		vy = -FEET_GRAVITY;
+		vx = 0;
 		nx = -1;
 		break;
-	case MARIO_STATE_WALKING_DOWN:
-		vy = -MARIO_WALKING_SPEED;
+	case FEET_STATE_DROP_RIGHT:
+		vy = -FEET_GRAVITY;
+		vx = 0;
 		nx = 1;
 		break;
-	case MARIO_STATE_WALKING_UP:
-		vy = MARIO_WALKING_SPEED;
-		nx = 2;
+	case FEET_STATE_IDLE_LEFT:
+		vx = 0;
+		vy = 0;
+		nx = -1;
 		break;
-	case MARIO_STATE_JUMP:
-		// TODO: need to check if Mario is *current* on a platform before allowing to jump again
-		vy = -MARIO_JUMP_SPEED_Y;
-		break;
-	case MARIO_STATE_IDLE_RIGHT:
+	case FEET_STATE_IDLE_RIGHT:
+		nx = 1;
 		vx = 0;
 		vy = 0;
 		break;
-	case MARIO_STATE_DIE:
-		vy = -MARIO_DIE_DEFLECT_SPEED;
+	case FEET_STATE_WALKING_LEFT:
+		vx = -FEET_WALKING_SPEED;
+		vy = 0;
+		nx = -1;
+		break;
+	case FEET_STATE_WALKING_RIGHT:
+		vx = FEET_WALKING_SPEED;
+		vy = 0;
+		nx = 1;
 		break;
 	}
 }
 
-void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CFeet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	/*left = x;
 	top = y;
 
-	if (level == MARIO_LEVEL_BIG)
+	if (level == FEET_LEVEL_BIG)
 	{
-		right = x + MARIO_BIG_BBOX_WIDTH;
-		bottom = y + MARIO_BIG_BBOX_HEIGHT;
+		right = x + FEET_BIG_BBOX_WIDTH;
+		bottom = y + FEET_BIG_BBOX_HEIGHT;
 	}
 	else
 	{
-		right = x + MARIO_SMALL_BBOX_WIDTH;
-		bottom = y + MARIO_SMALL_BBOX_HEIGHT;
+		right = x + FEET_SMALL_BBOX_WIDTH;
+		bottom = y + FEET_SMALL_BBOX_HEIGHT;
 	}*/
 }
 
 /*
 	Reset Mario status to the beginning state of a scene
 */
-void CMario::Reset()
+void CFeet::Reset()
 {
-	SetState(MARIO_STATE_IDLE_RIGHT);
-	SetLevel(MARIO_LEVEL_BIG);
-	SetPosition(start_x, start_y);
+	SetState(FEET_STATE_IDLE_RIGHT);
+	//SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
 }
 
+CFeet* CFeet::GetInstance()
+{
+	if (__instance == NULL) __instance = new CFeet();
+	return __instance;
+}

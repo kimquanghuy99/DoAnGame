@@ -15,7 +15,7 @@ CGame* CGame::__instance = NULL;
 */
 void CGame::Init(HWND hWnd)
 {
-	cam = new CCamera();
+	cam = CCamera::GetInstance();
 
 	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
