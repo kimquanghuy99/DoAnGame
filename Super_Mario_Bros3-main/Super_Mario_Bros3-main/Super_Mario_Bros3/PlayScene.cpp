@@ -6,9 +6,12 @@
 
 using namespace std;
 
+CPlayScene* CPlayScene::__instance = NULL;
+
 CPlayScene::CPlayScene(int id, LPCWSTR filePath) : CScene(id, filePath)
 {
 	key_handler = new CPlayScenceKeyHandler(this);
+	__instance = this;
 }
 
 void CPlayScene::_ParseSection_TEXTURES(string line)
@@ -134,14 +137,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj = player->GetBody();
 		}
 		break;
-		//case OBJECT_TYPE_FEET:
-		//{
-		//	CFeet* feet = CFeet::GetInstance();
-		//	if (feet != NULL)
-		//		return;
-		//	obj = new CFeet(x, y);
-		//}
-		//break;
+		case OBJECT_TYPE_FEET:
+		{
+			obj = player->GetFeet();
+		}
+		break;
 		case OBJECT_TYPE_BACKGROUND:
 		{
 			CGame* game = CGame::GetInstance();
@@ -281,6 +281,40 @@ void CPlayScene::Unload()
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 
+void CPlayScene::AddObject(float x, float y, int objId)
+{
+	int ani_set_id = objId;
+	if (objId == 10)
+		ani_set_id = 0;
+	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
+
+	CGameObject* obj = NULL;
+
+	switch (objId)
+	{
+		case OBJECT_TYPE_BULLET:
+			obj = new CGoomba();
+			break;
+		default:
+			return;
+			break;
+	}
+	// General object setup
+	obj->SetPosition(x, y);
+
+	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+
+	obj->SetAnimationSet(ani_set);
+	objects.push_back(obj);
+}
+
+CPlayScene* CPlayScene::GetInstance()
+{
+	if (__instance == NULL)
+		__instance = new CPlayScene();
+	return __instance;
+}
+
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
@@ -288,19 +322,54 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	CMarcoRossi* player = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
-	case DIK_SPACE:
-		player->SetState(MARCO_ROSSI_STATE_IDLE_RIGHT);
-		break;
+	//case DIK_SPACE:
+		//player->SetState(MARCO_ROSSI_STATE_IDLE_RIGHT);
+		//break;
 	case DIK_A:
+		player->Shoot(true);
 		break;
 	case DIK_LEFT:
-		player->SetState(MARCO_ROSSI_STATE_WALKING_LEFT);
+		if(player->GetState() == MARCO_ROSSI_STATE_MOVE_RIGHT)
+			player->SetState(MARCO_ROSSI_STATE_IDLE_RIGHT);
+		else
+			if (player->GetState() == MARCO_ROSSI_STATE_IDLE_RIGHT)
+				player->SetState(MARCO_ROSSI_STATE_IDLE_LEFT);
+			else
+				player->SetState(MARCO_ROSSI_STATE_MOVE_LEFT);
 		break;
 	case DIK_RIGHT:
-		player->SetState(MARCO_ROSSI_STATE_WALKING_RIGHT);
+		if (player->GetState() == MARCO_ROSSI_STATE_MOVE_LEFT)
+			player->SetState(MARCO_ROSSI_STATE_IDLE_LEFT);
+		else
+			if (player->GetState() == MARCO_ROSSI_STATE_MOVE_LEFT)
+				player->SetState(MARCO_ROSSI_STATE_IDLE_RIGHT);
+			else
+				player->SetState(MARCO_ROSSI_STATE_MOVE_RIGHT);
 		break;
 	case DIK_UP:
-		player->SetState(MARCO_ROSSI_STATE_PARACHUTE);
+		player->SetFaceState(true);
+		break;
+	}
+}
+
+void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
+{
+	CMarcoRossi* player = ((CPlayScene*)scence)->GetPlayer();
+	switch (KeyCode)
+	{
+	case DIK_A:
+		player->Shoot(false);
+		break;
+	case DIK_UP:
+		player->SetFaceState(false);
+		break;
+	case DIK_LEFT:
+		if (player->GetState() == MARCO_ROSSI_STATE_MOVE_LEFT)
+			player->SetState(MARCO_ROSSI_STATE_IDLE_LEFT);
+		break;
+	case DIK_RIGHT:
+		if (player->GetState() == MARCO_ROSSI_STATE_MOVE_RIGHT)
+			player->SetState(MARCO_ROSSI_STATE_IDLE_RIGHT);
 		break;
 	}
 }
@@ -309,4 +378,12 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
 	CGame* game = CGame::GetInstance();
 	CMarcoRossi* player = ((CPlayScene*)scence)->GetPlayer();
+	if (game->IsKeyDown(DIK_A));
+		player->Shoot(true);
+	if (game->IsKeyDown(DIK_LEFT) && game->IsKeyDown(DIK_RIGHT))
+		return;
+	//if (game->IsKeyDown(DIK_LEFT));
+	//	player->SetState(MARCO_ROSSI_STATE_MOVE_LEFT);
+	//if (game->IsKeyDown(DIK_RIGHT));
+	//	player->SetState(MARCO_ROSSI_STATE_MOVE_RIGHT);
 }

@@ -10,10 +10,13 @@
 #include "Parallax.h"
 #include "MarcoRossi.h"
 #include "Portal.h"
+#include "Goomba.h"
 
 class CPlayScene : public CScene
 {
 protected:
+	static CPlayScene* __instance;
+
 	CMarcoRossi* player;		// A play scene has to have player, right?					
 	vector<LPGAMEOBJECT> objects;
 
@@ -23,8 +26,8 @@ protected:
 	void _ParseSection_ANIMATION_SETS(string line);
 	void _ParseSection_OBJECTS(string line);
 
-
 public:
+	CPlayScene() {};
 	CPlayScene(int id, LPCWSTR filePath);
 
 	virtual void Load();
@@ -32,7 +35,14 @@ public:
 	virtual void Render();
 	virtual void Unload();
 
+	void AddObject(float x, float y, int objId);
+
 	CMarcoRossi* GetPlayer() { return player; }
+
+	static CPlayScene* GetInstance();
+
+	~CPlayScene();
+
 	//friend class CPlayScenceKeyHandler;
 };
 
@@ -41,7 +51,7 @@ class CPlayScenceKeyHandler : public CScenceKeyHandler
 public:
 	virtual void KeyState(BYTE* states);
 	virtual void OnKeyDown(int KeyCode);
-	virtual void OnKeyUp(int KeyCode) {};
+	virtual void OnKeyUp(int KeyCode);
 	CPlayScenceKeyHandler(CScene* s) :CScenceKeyHandler(s) {};
 };
 

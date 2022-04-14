@@ -25,7 +25,10 @@ public:
 	virtual void Render();
 	void SetPosition(float x, float y);
 	void SetState(int state);
-	int GetHeight() { return this->height; }
+	int GetHeight() { 
+		return this->height; 
+		DebugOut(L"height: ", height);
+	}
 	static CBody* GetInstance();
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

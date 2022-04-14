@@ -21,12 +21,15 @@
 #define OBJECT_TYPE_BODY				11
 #define OBJECT_TYPE_FEET				12
 #define OBJECT_TYPE_BRICK				1
-#define OBJECT_TYPE_GOOMBA				2
+
 #define OBJECT_TYPE_KOOPAS				3
 #define OBJECT_TYPE_BRICK2				4
 #define OBJECT_TYPE_BACKGROUND			36
 #define OBJECT_TYPE_ANIMATED_BACKGROUND	39
 #define OBJECT_TYPE_PARALLAX	43
+
+#define OBJECT_TYPE_GOOMBA	2
+#define OBJECT_TYPE_BULLET	999
 
 #define OBJECT_TYPE_PORTAL	50
 
@@ -35,6 +38,7 @@
 //animated background
 #define WAVE_EFFECT_1	0
 #define WAVE_EFFECT_2	1
+#define SAND_BACKGROUND_1	2
 
 //define player distance to camera
 #define DISTANCE_LEFT	0

@@ -11,6 +11,7 @@ protected:
 	LPCWSTR sceneFilePath;
 
 public:
+	CScene(){};
 	CScene(int id, LPCWSTR filePath);
 
 	CKeyEventHandler* GetKeyEventHandler() { return key_handler; }

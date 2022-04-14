@@ -4,6 +4,7 @@
 
 #include "MarcoRossi.h"
 #include "Game.h"
+#include "PlayScene.h"
 
 #include "Goomba.h"
 #include "Portal.h"
@@ -26,9 +27,6 @@ void CMarcoRossi::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 
-	// Simple fall down
-	//vy += BODY_GRAVITY * dt;
-
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -43,7 +41,7 @@ void CMarcoRossi::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		x += dx;
 		y += dy;
-		body->SetPosition(x, y);
+		UpdatePosition();
 	}
 	else
 	{
@@ -104,11 +102,57 @@ void CMarcoRossi::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CMarcoRossi::Render()
 {
-	//int ani = body->GetState();
-	//body = CBody::GetInstance();
-	//body->Render();
-	//body->animation_set->at(1)->Render(x, y, false, 255);
-	//animation_set->at(ani)->Render(x, y, nx > 0 ? false : true, alpha);
+}
+
+void CMarcoRossi::Shoot(bool _isShooting)
+{
+	this->isShooting = _isShooting;
+	if (_isShooting)
+	{
+		CPlayScene* playscene = CPlayScene::GetInstance();
+		switch (heightState)
+		{
+			case -1:
+				if (faceState == 1)
+					playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
+				else
+					if (faceState == 2)
+						playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
+					else
+						playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
+				break;
+			default:
+				if (faceState == 1)
+					playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
+				else
+					if (faceState == 2)
+						playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
+					else
+						playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
+				break;
+		}
+	}
+}
+
+void CMarcoRossi::SetFaceState(bool _isUp)
+{
+	if (_isUp == true)
+	{
+		faceState += 1;
+		if (faceState > 1)
+			faceState = 1;
+	}
+	else
+	{
+		faceState -= 1;
+		if (faceState < -1)
+			faceState = -1;
+	}
+}
+
+void CMarcoRossi::SetHeightState()
+{
+
 }
 
 void CMarcoRossi::SetState(int state)
@@ -118,60 +162,36 @@ void CMarcoRossi::SetState(int state)
 	switch (state)
 	{
 	case MARCO_ROSSI_STATE_PARACHUTE:
-		body->SetState(BODY_STATE_IDLE_RIGHT);
+		vx = 0; //???
 		vy = MARCO_ROSSI_GRAVITY;
-		vx = 0;
 		nx = 1;
 		break;
 	case MARCO_ROSSI_STATE_IDLE_LEFT:
 		body->SetState(BODY_STATE_IDLE_LEFT);
-		vy = 0;
+		feet->SetState(FEET_STATE_IDLE_LEFT);
 		vx = 0;
+		vy = 0;
 		nx = -1;
 		break;
 	case MARCO_ROSSI_STATE_IDLE_RIGHT:
 		body->SetState(BODY_STATE_IDLE_RIGHT);
-		vy = 0;
+		feet->SetState(FEET_STATE_IDLE_RIGHT);
 		vx = 0;
+		vy = 0;
 		nx = 1;
 		break;
-	case MARCO_ROSSI_STATE_WALKING_LEFT:
+	case MARCO_ROSSI_STATE_MOVE_LEFT:
 		body->SetState(BODY_STATE_IDLE_LEFT);
-		vy = 0;
+		feet->SetState(FEET_STATE_IDLE_LEFT);
 		vx = -MARCO_ROSSI_WALKING_SPEED;
 		nx = -1;
 		break;
-	case MARCO_ROSSI_STATE_WALKING_RIGHT:
+	case MARCO_ROSSI_STATE_MOVE_RIGHT:
 		body->SetState(BODY_STATE_IDLE_RIGHT);
-		vy = 0;
+		feet->SetState(FEET_STATE_IDLE_RIGHT);
 		vx = MARCO_ROSSI_WALKING_SPEED;
 		nx = 1;
 		break;
-	//case BODY_STATE_DROP_RIGHT:
-	//	vy = -BODY_GRAVITY;
-	//	vx = 0;
-	//	nx = 1;
-	//	break;
-	//case BODY_STATE_IDLE_LEFT:
-	//	vx = 0;
-	//	vy = 0;
-	//	nx = -1;
-	//	break;
-	//case BODY_STATE_IDLE_RIGHT:
-	//	nx = 1;
-	//	vx = 0;
-	//	vy = 0;
-	//	break;
-	//case BODY_STATE_WALKING_LEFT:
-	//	vx = -BODY_WALKING_SPEED;
-	//	vy = 0;
-	//	nx = -1;
-	//	break;
-	//case BODY_STATE_WALKING_RIGHT:
-	//	vx = BODY_WALKING_SPEED;
-	//	vy = 0;
-	//	nx = 1;
-	//	break;
 	}
 }
 
@@ -185,25 +205,33 @@ void CMarcoRossi::GetBoundingBox(float& left, float& top, float& right, float& b
 		right = x + BODY_BIG_BBOX_WIDTH;
 		bottom = y + BODY_BIG_BBOX_HEIGHT;
 	}
-	else
-	{
-		right = x + BODY_SMALL_BBOX_WIDTH;
-		bottom = y + BODY_SMALL_BBOX_HEIGHT;
-	}*/
+	*/
 }
 
-/*
-	Reset Mario status to the beginning state of a scene
-*/
+void CMarcoRossi::UpdatePosition()
+{
+	body->SetPosition(x, y);
+	switch (state)
+	{
+	case MARCO_ROSSI_STATE_PARACHUTE:
+		break;
+	case MARCO_ROSSI_STATE_IDLE_LEFT:
+		feet->SetPosition(x + 9, y - 20);
+		break;
+	case MARCO_ROSSI_STATE_IDLE_RIGHT:
+		feet->SetPosition(x + 3, y - 20);
+		break;
+	case MARCO_ROSSI_STATE_MOVE_LEFT:
+		feet->SetPosition(x + 9, y - 20);
+		break;
+	case MARCO_ROSSI_STATE_MOVE_RIGHT:
+		feet->SetPosition(x + 3, y - 20);
+		break;
+	}
+}
 
 CMarcoRossi* CMarcoRossi::GetInstance()
 {
 	if (__instance == NULL) __instance = new CMarcoRossi();
 	return __instance;
-}
-
-CBody* CMarcoRossi::GetBody()
-{
-	//body = CBody::GetInstance();
-	return body;
 }
