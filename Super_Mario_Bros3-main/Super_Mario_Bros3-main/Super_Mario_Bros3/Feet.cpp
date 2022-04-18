@@ -40,10 +40,10 @@ void CFeet::Render()
 		ani = FEET_ANI_IDLE;
 		break;
 	case FEET_STATE_WALKING_LEFT:
-		ani = FEET_ANI_WALK;
+		ani = FEET_ANI_IDLE;
 		break;
 	case FEET_STATE_WALKING_RIGHT:
-		ani = FEET_ANI_WALK;
+		ani = FEET_ANI_IDLE;
 		break;
 
 	}
