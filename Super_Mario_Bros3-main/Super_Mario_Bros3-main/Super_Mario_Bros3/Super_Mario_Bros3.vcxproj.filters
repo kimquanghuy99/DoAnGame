@@ -92,6 +92,9 @@
     <ClInclude Include="Portal.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="Parachute.h">
+      <Filter>Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -150,6 +153,9 @@
     </ClCompile>
     <ClCompile Include="MarcoRossi.cpp">
       <Filter>Game Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Parachute.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

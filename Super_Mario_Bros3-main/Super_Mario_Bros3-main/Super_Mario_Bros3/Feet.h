@@ -14,7 +14,10 @@
 
 #define FEET_ANI_DROP		0
 #define FEET_ANI_IDLE		1
-#define FEET_ANI_JUMP_CLOSE 2
+#define FEET_ANI_WALKING 2	
+#define FEET_ANI_WALKING_r 3	
+#define FEET_ANI_JUMP 4
+#define FEET_ANI_JUMP_CLOSE 5
 
 class CFeet : public CGameObject
 {

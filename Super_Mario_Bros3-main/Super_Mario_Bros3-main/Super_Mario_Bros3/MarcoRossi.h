@@ -10,11 +10,24 @@
 #define MARCO_ROSSI_GRAVITY			-0.002f
 
 //state
-#define MARCO_ROSSI_STATE_PARACHUTE		0
-#define MARCO_ROSSI_STATE_IDLE_LEFT		1
-#define MARCO_ROSSI_STATE_IDLE_RIGHT	2
-#define MARCO_ROSSI_STATE_MOVE_LEFT		3
-#define MARCO_ROSSI_STATE_MOVE_RIGHT	4
+#define MARCO_ROSSI_STATE_PARACHUTE				0
+#define MARCO_ROSSI_STATE_STAND					1
+#define MARCO_ROSSI_STATE_STAND_LEFT			2
+#define MARCO_ROSSI_STATE_STAND_RIGHT			3
+
+#define MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT		4
+#define MARCO_ROSSI_STATE_NORMAL_MOVE_RIGHT		5
+
+#define MARCO_ROSSI_STATE_LOWER					6
+#define MARCO_ROSSI_STATE_LOWER_LEFT			7
+#define MARCO_ROSSI_STATE_LOWER_RIGHT			8
+#define MARCO_ROSSI_STATE_LOWER_MOVE_LEFT		9
+#define MARCO_ROSSI_STATE_LOWER_MOVE_RIGHT		10
+
+#define MARCO_ROSSI_STATE_JUMP					11
+#define MARCO_ROSSI_STATE_JUMP_LEFT				12
+#define MARCO_ROSSI_STATE_JUMP_RIGHT			13
+
 
 class CMarcoRossi : public CGameObject
 {
@@ -22,9 +35,7 @@ class CMarcoRossi : public CGameObject
 	CFeet* feet;
 
 	bool isShooting = false;
-
-	int faceState = 0; //left & right = 0; up = 1; down = -1 
-	int heightState = 0; //jumping = 1; normal = 0; lower = -1;
+	int Jump = 0; //0 = no jump; 1 = jump; 2 = height-jump
 
 	static CMarcoRossi* __instance;
 public:
@@ -35,13 +46,11 @@ public:
 	void SetState(int state);
 	int GetState() { return this->state; }
 
-	void Shoot(bool _isShooting);
+	void Shoot();
 	bool isShoot() { return this->isShooting; }
 
-	void SetFaceState(bool _isUp);
-
-	void SetHeightState();
-	int GetHeightState() { return this->heightState; }
+	void SetNy(int _ny) { this->ny = _ny; }
+	int GetNy() { return ny; }
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 

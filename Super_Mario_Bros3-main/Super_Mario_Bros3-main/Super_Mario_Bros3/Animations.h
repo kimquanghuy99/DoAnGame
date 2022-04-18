@@ -17,8 +17,6 @@ public:
 	CAnimationFrame(LPSPRITE sprite, int time) { this->sprite = sprite; this->time = time; }
 	DWORD GetTime() { return time; }
 	LPSPRITE GetSprite() { return sprite; }
-	int getWidth(int sprite_id);
-	int getHeight(int sprite_id);
 };
 
 typedef CAnimationFrame* LPANIMATION_FRAME;
@@ -33,7 +31,7 @@ public:
 	CAnimation(int defaultTime = 100) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
 	void Add(int spriteId, DWORD time = 0);
 
-	int Render(float x, float y, bool flipX = false, int alpha = 255);
+	void Render(float x, float y, bool flipX = false, int alpha = 255);
 	LPANIMATION_FRAME GetAnimationFrame(int spriteId);
 };
 

@@ -27,9 +27,6 @@ void CBody::Render()
 	int ani = -1;
 	switch (state)
 	{
-		case BODY_STATE_DROP_LEFT:
-			ani = BODY_ANI_DROP;
-			break;
 		case BODY_STATE_DROP_RIGHT:
 			ani = BODY_ANI_DROP;
 			break;
@@ -40,41 +37,66 @@ void CBody::Render()
 			ani = BODY_ANI_IDLE;
 			break;
 		case BODY_STATE_WALKING_LEFT:
-			ani = BODY_ANI_IDLE;
+			ani = BODY_ANI_WALK;
 			break;
 		case BODY_STATE_WALKING_RIGHT:
-			ani = BODY_ANI_IDLE;
+			ani = BODY_ANI_WALK;
 			break;
-			
+		case BODY_STATE_JUMP:
+			ani = BODY_ANI_DROP;
+			break;
+		case BODY_STATE_SHOOT_LEFT:
+			ani = BODY_ANI_DROP;
+			break;
+		case BODY_STATE_SHOOT_RIGHT:
+			ani = BODY_ANI_DROP;
+			break;
+		case BODY_STATE_SHOOT_UP:
+			ani = BODY_ANI_DROP;
+			break;
+		case BODY_STATE_SHOOT_DOWN:
+			ani = BODY_ANI_DROP;
+			break;
 	}
 	int alpha = 255;
-	this->height = animation_set->at(ani)->Render(x, y, nx > 0? false:true, alpha);
+	animation_set->at(ani)->Render(x, y, nx > 0? false:true, alpha);
 }
 
 void CBody::SetState(int state)
 {
 	CGameObject::SetState(state);
-
 	switch (state)
 	{
-		case BODY_STATE_DROP_LEFT:
-			nx = -1;
-			break;
-		case BODY_STATE_DROP_RIGHT:
-			nx = 1;
-			break;
-		case BODY_STATE_IDLE_LEFT:
-			nx = -1;
-			break;
-		case BODY_STATE_IDLE_RIGHT:
-			nx = 1;
-			break;
-		case BODY_STATE_WALKING_LEFT:
-			nx = -1;
-			break;
-		case BODY_STATE_WALKING_RIGHT:
-			nx = 1;
-			break;
+	case BODY_STATE_DROP_RIGHT:
+		nx = 1;
+		break;
+	case BODY_STATE_IDLE_LEFT:
+		nx = -1;
+		break;
+	case BODY_STATE_IDLE_RIGHT:
+		nx = 1;
+		break;
+	case BODY_STATE_WALKING_LEFT:
+		nx = -1;
+		break;
+	case BODY_STATE_WALKING_RIGHT:
+		nx = 1;
+		break;
+	case BODY_STATE_JUMP:
+		nx = 1;
+		break;
+	case BODY_STATE_SHOOT_LEFT:
+		nx = -1;
+		break;
+	case BODY_STATE_SHOOT_RIGHT:
+		nx = 1;
+		break;
+	case BODY_STATE_SHOOT_UP:
+		nx = 1;
+		break;
+	case BODY_STATE_SHOOT_DOWN:
+		nx = 1;
+		break;
 	}
 }
 

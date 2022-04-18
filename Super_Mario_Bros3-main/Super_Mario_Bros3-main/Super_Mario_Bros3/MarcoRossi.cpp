@@ -33,7 +33,7 @@ void CMarcoRossi::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	coEvents.clear();
 
 	// turn off collision when die 
-	if (state != BODY_STATE_DIE)
+	//if (state != BODY_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// No collision occured, proceed normally
@@ -104,55 +104,34 @@ void CMarcoRossi::Render()
 {
 }
 
-void CMarcoRossi::Shoot(bool _isShooting)
+void CMarcoRossi::Shoot()
 {
-	this->isShooting = _isShooting;
-	if (_isShooting)
+	isShooting = true;
+	//CPlayScene* playscene = CPlayScene::GetInstance();
+	/*
+	switch (heightState)
 	{
-		CPlayScene* playscene = CPlayScene::GetInstance();
-		switch (heightState)
-		{
-			case -1:
-				if (faceState == 1)
+		case -1:
+			if (faceState == 1)
+				playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
+			else
+				if (faceState == 2)
 					playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
 				else
-					if (faceState == 2)
-						playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
-					else
-						playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
-				break;
-			default:
-				if (faceState == 1)
+					playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
+			break;
+		default:
+			if (faceState == 1)
+				playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
+			else
+				if (faceState == 2)
 					playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
 				else
-					if (faceState == 2)
-						playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
-					else
-						playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
-				break;
+					playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
+			break;
 		}
 	}
-}
-
-void CMarcoRossi::SetFaceState(bool _isUp)
-{
-	if (_isUp == true)
-	{
-		faceState += 1;
-		if (faceState > 1)
-			faceState = 1;
-	}
-	else
-	{
-		faceState -= 1;
-		if (faceState < -1)
-			faceState = -1;
-	}
-}
-
-void CMarcoRossi::SetHeightState()
-{
-
+	*/
 }
 
 void CMarcoRossi::SetState(int state)
@@ -165,32 +144,36 @@ void CMarcoRossi::SetState(int state)
 		vx = 0; //???
 		vy = MARCO_ROSSI_GRAVITY;
 		nx = 1;
+		ny = 0;
 		break;
-	case MARCO_ROSSI_STATE_IDLE_LEFT:
+	case MARCO_ROSSI_STATE_STAND_LEFT:
 		body->SetState(BODY_STATE_IDLE_LEFT);
 		feet->SetState(FEET_STATE_IDLE_LEFT);
 		vx = 0;
 		vy = 0;
 		nx = -1;
+		ny = 0;
 		break;
-	case MARCO_ROSSI_STATE_IDLE_RIGHT:
+	case MARCO_ROSSI_STATE_STAND_RIGHT:
 		body->SetState(BODY_STATE_IDLE_RIGHT);
 		feet->SetState(FEET_STATE_IDLE_RIGHT);
 		vx = 0;
 		vy = 0;
-		nx = 1;
+		ny = 0;
 		break;
-	case MARCO_ROSSI_STATE_MOVE_LEFT:
-		body->SetState(BODY_STATE_IDLE_LEFT);
-		feet->SetState(FEET_STATE_IDLE_LEFT);
+	case MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT:
+		body->SetState(BODY_STATE_WALKING_LEFT);
+		feet->SetState(FEET_STATE_WALKING_LEFT);
 		vx = -MARCO_ROSSI_WALKING_SPEED;
 		nx = -1;
+		ny = 0;
 		break;
-	case MARCO_ROSSI_STATE_MOVE_RIGHT:
-		body->SetState(BODY_STATE_IDLE_RIGHT);
-		feet->SetState(FEET_STATE_IDLE_RIGHT);
+	case MARCO_ROSSI_STATE_NORMAL_MOVE_RIGHT:
+		body->SetState(BODY_STATE_WALKING_RIGHT);
+		feet->SetState(FEET_STATE_WALKING_RIGHT);
 		vx = MARCO_ROSSI_WALKING_SPEED;
 		nx = 1;
+		ny = 0;
 		break;
 	}
 }
@@ -215,16 +198,16 @@ void CMarcoRossi::UpdatePosition()
 	{
 	case MARCO_ROSSI_STATE_PARACHUTE:
 		break;
-	case MARCO_ROSSI_STATE_IDLE_LEFT:
+	case MARCO_ROSSI_STATE_STAND_LEFT:
 		feet->SetPosition(x + 9, y - 20);
 		break;
-	case MARCO_ROSSI_STATE_IDLE_RIGHT:
+	case MARCO_ROSSI_STATE_STAND_RIGHT:
 		feet->SetPosition(x + 3, y - 20);
 		break;
-	case MARCO_ROSSI_STATE_MOVE_LEFT:
+	case MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT:
 		feet->SetPosition(x + 9, y - 20);
 		break;
-	case MARCO_ROSSI_STATE_MOVE_RIGHT:
+	case MARCO_ROSSI_STATE_NORMAL_MOVE_RIGHT:
 		feet->SetPosition(x + 3, y - 20);
 		break;
 	}

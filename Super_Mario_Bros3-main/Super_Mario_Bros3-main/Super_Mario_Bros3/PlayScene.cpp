@@ -323,31 +323,31 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	//case DIK_SPACE:
-		//player->SetState(MARCO_ROSSI_STATE_IDLE_RIGHT);
+		//player->SetState(MARCO_ROSSI_STATE_STAND_RIGHT);
 		//break;
 	case DIK_A:
-		player->Shoot(true);
+		//player->Shoot(true);
 		break;
 	case DIK_LEFT:
-		if(player->GetState() == MARCO_ROSSI_STATE_MOVE_RIGHT)
-			player->SetState(MARCO_ROSSI_STATE_IDLE_RIGHT);
+		if(player->GetState() == MARCO_ROSSI_STATE_NORMAL_MOVE_RIGHT)
+			player->SetState(MARCO_ROSSI_STATE_STAND_RIGHT);
 		else
-			if (player->GetState() == MARCO_ROSSI_STATE_IDLE_RIGHT)
-				player->SetState(MARCO_ROSSI_STATE_IDLE_LEFT);
+			if (player->GetState() == MARCO_ROSSI_STATE_STAND_RIGHT)
+				player->SetState(MARCO_ROSSI_STATE_STAND_LEFT);
 			else
-				player->SetState(MARCO_ROSSI_STATE_MOVE_LEFT);
+				player->SetState(MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT);
 		break;
 	case DIK_RIGHT:
-		if (player->GetState() == MARCO_ROSSI_STATE_MOVE_LEFT)
-			player->SetState(MARCO_ROSSI_STATE_IDLE_LEFT);
+		if (player->GetState() == MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT)
+			player->SetState(MARCO_ROSSI_STATE_STAND_LEFT);
 		else
-			if (player->GetState() == MARCO_ROSSI_STATE_MOVE_LEFT)
-				player->SetState(MARCO_ROSSI_STATE_IDLE_RIGHT);
+			if (player->GetState() == MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT)
+				player->SetState(MARCO_ROSSI_STATE_STAND_RIGHT);
 			else
-				player->SetState(MARCO_ROSSI_STATE_MOVE_RIGHT);
+				player->SetState(MARCO_ROSSI_STATE_NORMAL_MOVE_RIGHT);
 		break;
 	case DIK_UP:
-		player->SetFaceState(true);
+		player->SetNy(1);
 		break;
 	}
 }
@@ -358,18 +358,18 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_A:
-		player->Shoot(false);
+		//player->Shoot(false);
 		break;
 	case DIK_UP:
-		player->SetFaceState(false);
+		//player->SetFaceState(false);
 		break;
 	case DIK_LEFT:
-		if (player->GetState() == MARCO_ROSSI_STATE_MOVE_LEFT)
-			player->SetState(MARCO_ROSSI_STATE_IDLE_LEFT);
+		if (player->GetState() == MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT)
+			player->SetState(MARCO_ROSSI_STATE_STAND_LEFT);
 		break;
 	case DIK_RIGHT:
-		if (player->GetState() == MARCO_ROSSI_STATE_MOVE_RIGHT)
-			player->SetState(MARCO_ROSSI_STATE_IDLE_RIGHT);
+		if (player->GetState() == MARCO_ROSSI_STATE_NORMAL_MOVE_RIGHT)
+			player->SetState(MARCO_ROSSI_STATE_STAND_RIGHT);
 		break;
 	}
 }
@@ -379,7 +379,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	CGame* game = CGame::GetInstance();
 	CMarcoRossi* player = ((CPlayScene*)scence)->GetPlayer();
 	if (game->IsKeyDown(DIK_A));
-		player->Shoot(true);
+		//player->Shoot(true);
 	if (game->IsKeyDown(DIK_LEFT) && game->IsKeyDown(DIK_RIGHT))
 		return;
 	//if (game->IsKeyDown(DIK_LEFT));

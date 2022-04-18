@@ -155,6 +155,7 @@
     <ClInclude Include="Feet.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="MarcoRossi.h" />
+    <ClInclude Include="Parachute.h" />
     <ClInclude Include="Parallax.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Game.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="Feet.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="MarcoRossi.cpp" />
+    <ClCompile Include="Parachute.cpp" />
     <ClCompile Include="Parallax.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Portal.cpp" />

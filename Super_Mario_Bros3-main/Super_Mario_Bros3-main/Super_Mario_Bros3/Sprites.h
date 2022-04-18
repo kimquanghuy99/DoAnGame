@@ -18,9 +18,7 @@ class CSprite
 public:
 	CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
 
-	int Draw(float x, float y, bool flipX, int alpha = 255);
-	int getWidth();
-	int getHeight();
+	void Draw(float x, float y, bool flipX, int alpha = 255);
 };
 
 typedef CSprite* LPSPRITE;
