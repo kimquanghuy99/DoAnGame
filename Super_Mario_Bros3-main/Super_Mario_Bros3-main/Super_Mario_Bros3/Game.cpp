@@ -5,7 +5,6 @@
 #include "Utils.h"
 
 #include "PlayScene.h"
-
 CGame* CGame::__instance = NULL;
 
 /*
@@ -16,6 +15,8 @@ CGame* CGame::__instance = NULL;
 */
 void CGame::Init(HWND hWnd)
 {
+	cam = CCamera::GetInstance();
+
 	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
 	this->hWnd = hWnd;
@@ -34,9 +35,6 @@ void CGame::Init(HWND hWnd)
 
 	d3dpp.BackBufferHeight = r.bottom + 1;
 	d3dpp.BackBufferWidth = r.right + 1;
-
-	screen_height = r.bottom + 1;
-	screen_width = r.right + 1;
 
 	d3d->CreateDevice(
 		D3DADAPTER_DEFAULT,
@@ -63,15 +61,25 @@ void CGame::Init(HWND hWnd)
 /*
 	Utility function to wrap LPD3DXSPRITE::Draw
 */
-void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
+void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, bool flipX, int alpha)
 {
-	D3DXVECTOR3 p(x - cam_x, -y + cam_y, 0);
+	D3DXVECTOR2 p(x - cam->GetCamPosX(), -y + cam->GetCamPosY());
 	RECT r;
 	r.left = left;
 	r.top = top;
 	r.right = right;
 	r.bottom = bottom;
-	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+
+	int width = right - left;
+	int height = bottom - top;
+
+	D3DXVECTOR2 center = D3DXVECTOR2((float)width / 2, (float)height / 2);
+	D3DXVECTOR2 scaling = D3DXVECTOR2(flipX? -1 : 1, 1);
+	D3DXMATRIX matrix;
+	D3DXMatrixTransformation2D(&matrix, &center, NULL, &scaling, NULL, NULL, &p);
+	spriteHandler->SetTransform(&matrix);
+
+	spriteHandler->Draw(texture, &r, NULL, NULL, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
 int CGame::IsKeyDown(int KeyCode)
@@ -395,4 +403,14 @@ void CGame::SwitchScene(int scene_id)
 	LPSCENE s = scenes[scene_id];
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();
+}
+
+void CGame::SetCamPos(float x, float y)
+{
+	cam->SetCamPos(x, y);
+}
+
+void CGame::SetBoundary(float w, float h)
+{
+	cam->SetBoundary(w, h);
 }

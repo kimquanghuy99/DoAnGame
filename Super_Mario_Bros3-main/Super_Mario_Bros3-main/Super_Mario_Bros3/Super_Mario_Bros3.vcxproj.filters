@@ -5,103 +5,99 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
+    <Filter Include="Animation">
+      <UniqueIdentifier>{1c2390ea-6371-4bf3-bf31-c10a662625eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Game Object">
+      <UniqueIdentifier>{3752fe8b-6188-47ec-a4e0-0c3277338dff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect &amp; Background">
+      <UniqueIdentifier>{ca857ddb-c30a-49c3-a43e-008a55ce3cca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bullet">
+      <UniqueIdentifier>{b955dccf-2ca9-4ca7-a51d-06822de4b9ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Manager">
+      <UniqueIdentifier>{a989c223-e3ab-4e53-a511-ebff2170423f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprites.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Animations.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mario.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Textures.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEventHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Goomba.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Koopas.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Portal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Animations.h">
+      <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="PlayScene.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Textures.h">
+      <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Brick2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Cabay.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XeVan.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CuaCam.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Sprites.h">
+      <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="Boss.h">
-      <Filter>Header Files</Filter>
+      <Filter>Game Object</Filter>
     </ClInclude>
-    <ClInclude Include="Ong.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Background.h">
+      <Filter>Effect &amp; Background</Filter>
     </ClInclude>
-    <ClInclude Include="Soldier.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Parallax.h">
+      <Filter>Effect &amp; Background</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedBackground.h">
+      <Filter>Effect &amp; Background</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Game Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="define.h">
+      <Filter>Game Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEventHandler.h">
+      <Filter>Game Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Game Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Game Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Body.h">
+      <Filter>Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Feet.h">
+      <Filter>Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MarcoRossi.h">
+      <Filter>Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Parachute.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprites.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Textures.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utils.cpp">
@@ -110,37 +106,55 @@
     <ClCompile Include="Goomba.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Koopas.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Animations.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Sprites.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Textures.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Cabay.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XeVan.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CuaCam.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Background.cpp">
+      <Filter>Effect &amp; Background</Filter>
     </ClCompile>
     <ClCompile Include="Boss.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Game Object</Filter>
     </ClCompile>
-    <ClCompile Include="Ong.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Game Object</Filter>
     </ClCompile>
-    <ClCompile Include="Soldier.cpp">
+    <ClCompile Include="Parallax.cpp">
+      <Filter>Effect &amp; Background</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedBackground.cpp">
+      <Filter>Effect &amp; Background</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Game Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Game Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Game Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Game Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Body.cpp">
+      <Filter>Game Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Feet.cpp">
+      <Filter>Game Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MarcoRossi.cpp">
+      <Filter>Game Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Parachute.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

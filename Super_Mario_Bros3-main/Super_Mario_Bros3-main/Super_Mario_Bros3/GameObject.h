@@ -6,7 +6,7 @@
 
 #include "Sprites.h"
 #include "Animations.h"
-
+#include "Utils.h"
 
 using namespace std;
 
@@ -55,6 +55,7 @@ public:
 	float vy;
 
 	int nx;
+	int ny;
 
 	int state;
 
@@ -92,7 +93,6 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
-
 
 	~CGameObject();
 };

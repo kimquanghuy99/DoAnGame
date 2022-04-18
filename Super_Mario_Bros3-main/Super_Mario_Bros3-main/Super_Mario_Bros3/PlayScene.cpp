@@ -3,41 +3,16 @@
 
 #include "PlayScene.h"
 #include "Utils.h"
-#include "Textures.h"
-#include "Sprites.h"
-#include "Portal.h"
 
 using namespace std;
 
-CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
-	CScene(id, filePath)
+CPlayScene* CPlayScene::__instance = NULL;
+
+CPlayScene::CPlayScene(int id, LPCWSTR filePath) : CScene(id, filePath)
 {
 	key_handler = new CPlayScenceKeyHandler(this);
+	__instance = this;
 }
-
-/*
-	Load scene resources from scene file (textures, sprites, animations and objects)
-	See scene1.txt, scene2.txt for detail format specification
-*/
-
-#define SCENE_SECTION_UNKNOWN -1
-#define SCENE_SECTION_TEXTURES 2
-#define SCENE_SECTION_SPRITES 3
-#define SCENE_SECTION_ANIMATIONS 4
-#define SCENE_SECTION_ANIMATION_SETS	5
-#define SCENE_SECTION_OBJECTS	6
-
-#define OBJECT_TYPE_MARIO	0
-#define OBJECT_TYPE_BRICK	1
-#define OBJECT_TYPE_GOOMBA	2
-#define OBJECT_TYPE_KOOPAS	3
-#define OBJECT_TYPE_BRICK2	4
-
-
-#define OBJECT_TYPE_PORTAL	50
-
-#define MAX_SCENE_LINE 1024
-
 
 void CPlayScene::_ParseSection_TEXTURES(string line)
 {
@@ -135,6 +110,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	int object_type = atoi(tokens[0].c_str());
 	float x = atof(tokens[1].c_str());
 	float y = atof(tokens[2].c_str());
+	DebugOut(L"[INFO] 'x': %d, 'y' %d", x, y);
 
 	int ani_set_id = atoi(tokens[3].c_str());
 
@@ -144,34 +120,62 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
-	case OBJECT_TYPE_MARIO:
-		if (player != NULL)
+		case OBJECT_TYPE_MARCO_ROSSI:
 		{
-			DebugOut(L"[ERROR] MARIO object was created before!\n");
+			if (player != NULL)
+			{
+				DebugOut(L"[ERROR] player object was created before!\n");
+				return;
+			}
+			int state = atoi(tokens[4].c_str());
+			obj = new CMarcoRossi(x, y, state);
+			player = (CMarcoRossi*)obj;
+		}
+		break;
+		case OBJECT_TYPE_BODY:
+		{
+			obj = player->GetBody();
+		}
+		break;
+		case OBJECT_TYPE_FEET:
+		{
+			obj = player->GetFeet();
+		}
+		break;
+		case OBJECT_TYPE_BACKGROUND:
+		{
+			CGame* game = CGame::GetInstance();
+			int w = atof(tokens[4].c_str());
+			obj = new CBackground(x, y, w);
+			game->SetBoundary(w, y);
+		}
+		break;
+		case OBJECT_TYPE_ANIMATED_BACKGROUND:
+		{
+			int type = atof(tokens[4].c_str());
+			obj = new CAnimatedBackground(x, y, type);
+		}
+		break;
+		case OBJECT_TYPE_PARALLAX:
+		{
+			obj = new CParallax(x, y);
+		}
+		break;
+		case OBJECT_TYPE_PORTAL:
+		{
+			float r = atof(tokens[4].c_str());
+			float b = atof(tokens[5].c_str());
+			int scene_id = atoi(tokens[6].c_str());
+			obj = new CPortal(x, y, r, b, scene_id);
+		}
+		break;
+		default:
+		{
+			DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 			return;
 		}
-		obj = new CMario(x, y);
-		player = (CMario*)obj;
-
-		DebugOut(L"[INFO] Player object created!\n");
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
-	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
-	case OBJECT_TYPE_BRICK2: obj = new CBrick2(); break;
-	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;
-	case OBJECT_TYPE_PORTAL:
-	{
-		float r = atof(tokens[4].c_str());
-		float b = atof(tokens[5].c_str());
-		int scene_id = atoi(tokens[6].c_str());
-		obj = new CPortal(x, y, r, b, scene_id);
 	}
-	break;
-	default:
-		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
-		return;
-	}
-
 	// General object setup
 	obj->SetPosition(x, y);
 
@@ -213,9 +217,6 @@ void CPlayScene::Load()
 		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
 
-		//
-		// data section
-		//
 		switch (section)
 		{
 		case SCENE_SECTION_TEXTURES: _ParseSection_TEXTURES(line); break;
@@ -228,14 +229,14 @@ void CPlayScene::Load()
 
 	f.close();
 
-	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));//bounding box
 
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
 void CPlayScene::Update(DWORD dt)
 {
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
+	// We know that body is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 
 	vector<LPGAMEOBJECT> coObjects;
@@ -249,17 +250,14 @@ void CPlayScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
-	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
+	// skip the rest if scene was already unloaded (body::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
 
-	// Update camera to follow mario
+	// Update camera to follow body
 	float cx, cy;
 	player->GetPosition(cx, cy);
 
 	CGame* game = CGame::GetInstance();
-	cx -= game->GetScreenWidth() / 2;
-	cy += game->GetScreenHeight() / 2;
-
 	CGame::GetInstance()->SetCamPos(cx,cy);
 }
 
@@ -283,18 +281,95 @@ void CPlayScene::Unload()
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 
+void CPlayScene::AddObject(float x, float y, int objId)
+{
+	int ani_set_id = objId;
+	if (objId == 10)
+		ani_set_id = 0;
+	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
+
+	CGameObject* obj = NULL;
+
+	switch (objId)
+	{
+		case OBJECT_TYPE_BULLET:
+			obj = new CGoomba();
+			break;
+		default:
+			return;
+			break;
+	}
+	// General object setup
+	obj->SetPosition(x, y);
+
+	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+
+	obj->SetAnimationSet(ani_set);
+	objects.push_back(obj);
+}
+
+CPlayScene* CPlayScene::GetInstance()
+{
+	if (__instance == NULL)
+		__instance = new CPlayScene();
+	return __instance;
+}
+
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
-	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
+	CMarcoRossi* player = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
-	case DIK_SPACE:
-		mario->SetState(MARIO_STATE_JUMP);
-		break;
+	//case DIK_SPACE:
+		//player->SetState(MARCO_ROSSI_STATE_STAND_RIGHT);
+		//break;
 	case DIK_A:
-		mario->Reset();
+		//player->Shoot(true);
+		break;
+	case DIK_LEFT:
+		if(player->GetState() == MARCO_ROSSI_STATE_NORMAL_MOVE_RIGHT)
+			player->SetState(MARCO_ROSSI_STATE_STAND_RIGHT);
+		else
+			if (player->GetState() == MARCO_ROSSI_STATE_STAND_RIGHT)
+				player->SetState(MARCO_ROSSI_STATE_STAND_LEFT);
+			else
+				player->SetState(MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT);
+		break;
+	case DIK_RIGHT:
+		if (player->GetState() == MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT)
+			player->SetState(MARCO_ROSSI_STATE_STAND_LEFT);
+		else
+			if (player->GetState() == MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT)
+				player->SetState(MARCO_ROSSI_STATE_STAND_RIGHT);
+			else
+				player->SetState(MARCO_ROSSI_STATE_NORMAL_MOVE_RIGHT);
+		break;
+	case DIK_UP:
+		player->SetNy(1);
+		break;
+	}
+}
+
+void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
+{
+	CMarcoRossi* player = ((CPlayScene*)scence)->GetPlayer();
+	switch (KeyCode)
+	{
+	case DIK_A:
+		//player->Shoot(false);
+		break;
+	case DIK_UP:
+		//player->SetFaceState(false);
+		break;
+	case DIK_LEFT:
+		if (player->GetState() == MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT)
+			player->SetState(MARCO_ROSSI_STATE_STAND_LEFT);
+		break;
+	case DIK_RIGHT:
+		if (player->GetState() == MARCO_ROSSI_STATE_NORMAL_MOVE_RIGHT)
+			player->SetState(MARCO_ROSSI_STATE_STAND_RIGHT);
 		break;
 	}
 }
@@ -302,18 +377,13 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
 	CGame* game = CGame::GetInstance();
-	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
-
-	// disable control key when Mario die 
-	if (mario->GetState() == MARIO_STATE_DIE) return;
-	if (game->IsKeyDown(DIK_RIGHT))
-		mario->SetState(MARIO_STATE_WALKING_RIGHT);
-	else if (game->IsKeyDown(DIK_DOWN))
-		mario->SetState(MARIO_STATE_WALKING_DOWN);
-	else if (game->IsKeyDown(DIK_UP))
-		mario->SetState(MARIO_STATE_WALKING_UP);
-	else if (game->IsKeyDown(DIK_LEFT))
-		mario->SetState(MARIO_STATE_WALKING_LEFT);
-	else
-		mario->SetState(MARIO_STATE_IDLE);
+	CMarcoRossi* player = ((CPlayScene*)scence)->GetPlayer();
+	if (game->IsKeyDown(DIK_A));
+		//player->Shoot(true);
+	if (game->IsKeyDown(DIK_LEFT) && game->IsKeyDown(DIK_RIGHT))
+		return;
+	//if (game->IsKeyDown(DIK_LEFT));
+	//	player->SetState(MARCO_ROSSI_STATE_MOVE_LEFT);
+	//if (game->IsKeyDown(DIK_RIGHT));
+	//	player->SetState(MARCO_ROSSI_STATE_MOVE_RIGHT);
 }
