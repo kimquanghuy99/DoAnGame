@@ -34,6 +34,14 @@ class CMarcoRossi : public CGameObject
 	CBody* body;
 	CFeet* feet;
 
+	DWORD firing_start;
+	DWORD untouchable_start;
+
+	bool isFiring = 0;
+	bool isAlreadyFired = 0;
+
+	bool isAimingUp;
+
 	bool isShooting = false;
 	int Jump = 0; //0 = no jump; 1 = jump; 2 = height-jump
 
@@ -46,6 +54,9 @@ public:
 	void SetState(int state);
 	int GetState() { return this->state; }
 
+	void StartFiring() { if (firing_start == 0) firing_start = GetTickCount(); }
+	void SetisIsFiring(int time) { firing_start = time; }
+
 	void Shoot();
 	bool isShoot() { return this->isShooting; }
 
@@ -56,6 +67,14 @@ public:
 
 	CBody* GetBody() { return body; }
 	CFeet* GetFeet() { return feet; }
+
+	void SetisAimingUp(bool value) { isAimingUp = value; }
+	bool GetisAimingUp() { return isAimingUp; }
+
+	void SetisFiring(bool value) { isFiring = value; }
+	bool GetisFiring() { return isFiring; }
+	void SetisAlreadyFired(bool value) { isAlreadyFired = value; }
+	bool GetisAlreadyFired() { return isAlreadyFired; }
 
 	void UpdatePosition();
 	static CMarcoRossi* GetInstance();

@@ -95,6 +95,18 @@
     <ClInclude Include="Parachute.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="DefineAll.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -156,6 +168,15 @@
     </ClCompile>
     <ClCompile Include="Parachute.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Game Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>Bullet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

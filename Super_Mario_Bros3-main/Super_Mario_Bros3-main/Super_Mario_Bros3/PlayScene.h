@@ -11,6 +11,8 @@
 #include "MarcoRossi.h"
 #include "Portal.h"
 #include "Goomba.h"
+#include "Event.h"
+
 
 class CPlayScene : public CScene
 {
@@ -19,6 +21,8 @@ protected:
 
 	CMarcoRossi* player;		// A play scene has to have player, right?					
 	vector<LPGAMEOBJECT> objects;
+	vector<Event*> KaboomMng;
+
 
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
@@ -42,6 +46,12 @@ public:
 	static CPlayScene* GetInstance();
 
 	~CPlayScene();
+
+	void AddKaboomMng(float x, float y)
+	{
+		Event* obj = new Event(x, y);
+		this->KaboomMng.push_back(obj);
+	}
 
 	//friend class CPlayScenceKeyHandler;
 };
