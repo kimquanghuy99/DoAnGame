@@ -5,7 +5,7 @@
 #include "MarcoRossi.h"
 #include "Game.h"
 #include "PlayScene.h"
-
+#include "Bullet.h"
 #include "Goomba.h"
 #include "Portal.h"
 
@@ -38,7 +38,6 @@ void CMarcoRossi::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// turn off collision when die 
 	//if (state != BODY_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
-
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
@@ -194,6 +193,9 @@ void CMarcoRossi::GetBoundingBox(float& left, float& top, float& right, float& b
 
 void CMarcoRossi::UpdatePosition()
 {
+	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
+	LPANIMATION_SET ani_set = animation_sets->Get(3000);
+	CPlayScene* scene = CPlayScene::GetInstance();
 	body->SetPosition(x, y);
 	switch (state)
 	{
@@ -203,6 +205,15 @@ void CMarcoRossi::UpdatePosition()
 		feet->SetPosition(x + 9, y - 20);
 		break;
 	case MARCO_ROSSI_STATE_STAND_RIGHT:
+		if (isShooting == true)
+		{
+			CGameObject* obj = NULL;
+			obj->SetAnimationSet(ani_set);
+			obj = new CBullet(200, 100);
+
+			scene->AddObject(obj);
+		}
+		isShooting = false;
 		feet->SetPosition(x + 3, y - 20);
 		break;
 	case MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT:

@@ -11,6 +11,7 @@
 #include "MarcoRossi.h"
 #include "Portal.h"
 #include "Goomba.h"
+#include "Bullet.h"
 
 #define QUADTREE_SECTION_SETTINGS	1
 #define QUADTREE_SECTION_OBJECTS	2
@@ -91,7 +92,10 @@ public:
 	virtual void Render();
 	virtual void Unload();
 
-	void AddObject(float x, float y, int objId);
+	void AddObject(CGameObject* obj)
+	{
+		objects.push_back(obj);
+	}
 
 	CMarcoRossi* GetPlayer() { return player; }
 

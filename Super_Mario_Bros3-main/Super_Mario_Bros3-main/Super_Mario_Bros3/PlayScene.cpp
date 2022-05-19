@@ -126,7 +126,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	{
 		obj = new CGoomba(x, y);
 	}
-	break;
+		break;
 		case OBJECT_TYPE_MARCO_ROSSI:
 		{
 			if (player != NULL)
@@ -176,6 +176,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj = new CPortal(x, y, r, b, scene_id);
 		}
 		break;
+		//case OBJECT_TYPE_BULLET:
+		//{
+		//	obj = new CBullet(x, y);
+		//}
+		//break;
 		default:
 		{
 			DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
@@ -222,10 +227,10 @@ void CPlayScene::Load()
 		if (line == "[OBJECTS]") {
 			section = SCENE_SECTION_OBJECTS; continue;
 		}
-		if (line == "[QUADTREE]") {
-			DebugOut(L"wuadtree");
-			section = SCENE_SECTION_QUADTREE; continue;
-		}
+		//if (line == "[QUADTREE]") {
+		//	DebugOut(L"wuadtree");
+		//	section = SCENE_SECTION_QUADTREE; continue;
+		//}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
 
 		switch (section)
@@ -293,33 +298,6 @@ void CPlayScene::Unload()
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 
-void CPlayScene::AddObject(float x, float y, int objId)
-{
-	int ani_set_id = objId;
-	if (objId == 10)
-		ani_set_id = 0;
-	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
-
-	CGameObject* obj = NULL;
-
-	switch (objId)
-	{
-		case OBJECT_TYPE_BULLET:
-			obj = new CGoomba(x,y);
-			break;
-		default:
-			return;
-			break;
-	}
-	// General object setup
-	obj->SetPosition(x, y);
-
-	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
-
-	obj->SetAnimationSet(ani_set);
-	objects.push_back(obj);
-}
-
 CPlayScene* CPlayScene::GetInstance()
 {
 	if (__instance == NULL)
@@ -338,7 +316,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		player->SetState(MARCO_ROSSI_STATE_STAND_RIGHT);
 		break;*/
 	case DIK_A:
-		//player->Shoot(true);
+		player->Shoot();
 		break;
 	case DIK_LEFT:
 		if(player->GetState() == MARCO_ROSSI_STATE_NORMAL_MOVE_RIGHT)

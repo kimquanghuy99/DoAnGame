@@ -3,8 +3,11 @@
 0	textures\Background\Beach.png	248	0	248
 100	textures\Character\MarcoRossi1.png	255	255	255
 101	textures\Chowmein Conga.png	3	26	110
+300	textures\Miscellaneous\Weapon.png	0	248	0
 # id	left	top	right	bottom	texture_id
 [SPRITES]
+#Bullet
+300001	4	20	34	25	300
 #Conga_idle
 100001	15	27	66	72	101
 100002	82	27	132	72	101
@@ -155,7 +158,8 @@
 [ANIMATIONS]
 # walk
 2100	210001	100	210002	100	210003	100	210004	100	210005	100	210006	100	210007	100
-
+#Bullet
+30000	300001	100
 701	100001	100	100002	100	100003	100	100004	100	100005	100	100006	100	100007	100
 # === BODY ===
 #drop
@@ -199,6 +203,8 @@
 
 # id	ani1	ani2	ani3
 [ANIMATION_SETS]
+#BULLET
+3000	30000
 # GOOMBA
 3	701	2100	701
 # === BODY ===
@@ -216,9 +222,9 @@
 # type	x	y	ani_set_id	extra_settings per object type
 [OBJECTS]
 # === PARALLAX ===
-43	0	289	43
+#43	0	289	43
 # === BACKGROUND === (type, x, y, ani_set_id, width)
-36	0	222	36	1608
+#36	0	222	36	1608
 #SANDBACKGROUND (ANIMATED OBJECT)
 39	344	85	39	2
 # === MARCO ROSSI ===
@@ -238,7 +244,8 @@
 2	200	109	3
 2	260	109	3
 2	320	109	3
-
+#Bullet
+999	10	200	3000
 
 # --- SCENE PORTAL ----
 # type	l	t	ani_set_id	r	b	scene_id

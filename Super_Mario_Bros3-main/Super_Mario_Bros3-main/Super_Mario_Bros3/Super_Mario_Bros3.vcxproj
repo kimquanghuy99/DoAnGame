@@ -150,6 +150,7 @@
     <ClInclude Include="Animations.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="Feet.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="AnimatedBackground.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Feet.cpp" />
     <ClCompile Include="Goomba.cpp" />
