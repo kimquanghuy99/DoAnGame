@@ -1,8 +1,18 @@
 #include "Goomba.h"
+
+
+CGoomba::CGoomba(float x,float y)
+{
+	this->x = x;
+	this->y = y;
+
+	SetState(GOOMBA_STATE_WALKING);
+}
 CGoomba::CGoomba()
 {
 	SetState(GOOMBA_STATE_WALKING);
 }
+
 
 void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -65,7 +75,9 @@ void CGoomba::SetState(int state)
 	switch (state)
 	{
 	case GOOMBA_STATE_DIE:
-		y += GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE + 1;
+		x = 0;
+		y = 50;
+		//y += GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE + 1;
 		vx = 0;
 		vy = 0;
 		break;

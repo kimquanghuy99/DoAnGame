@@ -101,6 +101,7 @@ void CPlayScene::_ParseSection_ANIMATION_SETS(string line)
 */
 void CPlayScene::_ParseSection_OBJECTS(string line)
 {
+
 	vector<string> tokens = split(line);
 
 	//DebugOut(L"--> %s\n",ToWSTR(line).c_str());
@@ -118,8 +119,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	CGameObject* obj = NULL;
 
+
 	switch (object_type)
 	{
+	case OBJECT_TYPE_GOOMBA:
+	{
+		obj = new CGoomba(x, y);
+	}
+	break;
 		case OBJECT_TYPE_MARCO_ROSSI:
 		{
 			if (player != NULL)
@@ -293,7 +300,7 @@ void CPlayScene::AddObject(float x, float y, int objId)
 	switch (objId)
 	{
 		case OBJECT_TYPE_BULLET:
-			obj = new CGoomba();
+			obj = new CGoomba(x,y);
 			break;
 		default:
 			return;
@@ -322,9 +329,9 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	CMarcoRossi* player = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
-	//case DIK_SPACE:
-		//player->SetState(MARCO_ROSSI_STATE_STAND_RIGHT);
-		//break;
+	/*case DIK_SPACE:
+		player->SetState(MARCO_ROSSI_STATE_STAND_RIGHT);
+		break;*/
 	case DIK_A:
 		//player->Shoot(true);
 		break;

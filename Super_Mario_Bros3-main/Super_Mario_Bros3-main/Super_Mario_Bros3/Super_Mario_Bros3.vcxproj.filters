@@ -95,6 +95,9 @@
     <ClInclude Include="Parachute.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="QuadTree.h">
+      <Filter>Game Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -156,6 +159,9 @@
     </ClCompile>
     <ClCompile Include="Parachute.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>Game Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

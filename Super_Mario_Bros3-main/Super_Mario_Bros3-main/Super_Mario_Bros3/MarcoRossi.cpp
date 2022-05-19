@@ -26,6 +26,9 @@ CMarcoRossi::CMarcoRossi(float x, float y, int state) : CGameObject()
 void CMarcoRossi::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
+	// Simple fall down
+	//vy += MARCO_ROSSI_GRAVITY * dt;
+
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -76,7 +79,7 @@ void CMarcoRossi::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 
 				// jump on top >> kill Goomba and deflect a bit 
-				if (e->ny < 0)
+				if (e->nx!=0)
 				{
 					if (goomba->GetState() != GOOMBA_STATE_DIE)
 					{
@@ -180,15 +183,13 @@ void CMarcoRossi::SetState(int state)
 
 void CMarcoRossi::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	/*left = x;
+	left = x;
 	top = y;
 
-	if (level == BODY_LEVEL_BIG)
-	{
-		right = x + BODY_BIG_BBOX_WIDTH;
-		bottom = y + BODY_BIG_BBOX_HEIGHT;
-	}
-	*/
+	
+	right = x + 20;
+		bottom = y + 29;
+	
 }
 
 void CMarcoRossi::UpdatePosition()

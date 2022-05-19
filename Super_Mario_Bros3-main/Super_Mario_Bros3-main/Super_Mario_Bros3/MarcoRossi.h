@@ -38,6 +38,23 @@ class CMarcoRossi : public CGameObject
 	int Jump = 0; //0 = no jump; 1 = jump; 2 = height-jump
 
 	static CMarcoRossi* __instance;
+
+	int level;
+	int untouchable;
+	DWORD firing_start;
+	DWORD untouchable_start;
+
+	bool isJumping = false;
+
+	int dir = 0;
+
+	bool isAimingUp;
+
+	float start_x;			// initial position of SOPHIA at scene
+	float start_y;
+
+	bool isFiring = 0;
+	bool isAlreadyFired = 0;
 public:
 	CMarcoRossi(float x = 0.0f, float y = 0.0f, int state = 1);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
@@ -56,6 +73,20 @@ public:
 
 	CBody* GetBody() { return body; }
 	CFeet* GetFeet() { return feet; }
+
+	void StartFiring() { if (firing_start == 0) firing_start = GetTickCount(); }
+
+
+	bool GetIsJumping() { return isJumping; }
+	void SetIsJumping(bool value) { isJumping = value; }
+
+	void SetisAimingUp(bool value) { isAimingUp = value; }
+	bool GetisAimingUp() { return isAimingUp; }
+
+	void SetisFiring(bool value) { isFiring = value; }
+	bool GetisFiring() { return isFiring; }
+	void SetisAlreadyFired(bool value) { isAlreadyFired = value; }
+	bool GetisAlreadyFired() { return isAlreadyFired; }
 
 	void UpdatePosition();
 	static CMarcoRossi* GetInstance();
