@@ -60,6 +60,8 @@ protected:
 	static CPlayScene* __instance;
 	int mapHeight;
 
+	CQuadTree* quadtree;
+
 	CMarcoRossi* player;		// A play scene has to have player, right?					
 	vector<LPGAMEOBJECT> objects;
 
@@ -68,6 +70,8 @@ protected:
 	void _ParseSection_ANIMATIONS(string line);
 	void _ParseSection_ANIMATION_SETS(string line);
 	void _ParseSection_OBJECTS(string line);
+	void _ParseSection_QUADTREE(string line);
+
 
 public:
 	CPlayScene() {};

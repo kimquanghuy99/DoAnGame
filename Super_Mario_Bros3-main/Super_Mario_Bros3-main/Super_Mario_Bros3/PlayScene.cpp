@@ -231,6 +231,8 @@ void CPlayScene::Load()
 		case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
 		case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
 		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+		case SCENE_SECTION_QUADTREE: _ParseSection_QUADTREE(line); break;
+
 		}
 	}
 
@@ -393,4 +395,14 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	//	player->SetState(MARCO_ROSSI_STATE_MOVE_LEFT);
 	//if (game->IsKeyDown(DIK_RIGHT));
 	//	player->SetState(MARCO_ROSSI_STATE_MOVE_RIGHT);
+}
+void CPlayScene::_ParseSection_QUADTREE(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 1) return;
+
+	wstring file_path = ToWSTR(tokens[0]);
+	if (quadtree == NULL)
+		quadtree = new CQuadTree(file_path.c_str());
 }
