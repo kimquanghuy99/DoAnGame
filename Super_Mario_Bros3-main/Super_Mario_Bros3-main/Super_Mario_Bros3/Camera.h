@@ -23,6 +23,8 @@ public:
 
 	float GetCamPosX() { return cam_x; }
 	float GetCamPosY() { return cam_y; }
+	void GetCamPos(float& x, float& y);
+
 	static CCamera* GetInstance();
 
 	~CCamera();

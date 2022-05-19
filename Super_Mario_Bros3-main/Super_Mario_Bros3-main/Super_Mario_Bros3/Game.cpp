@@ -414,3 +414,13 @@ void CGame::SetBoundary(float w, float h)
 {
 	cam->SetBoundary(w, h);
 }
+
+bool CGame::IsInCamera(float x, float y)
+{
+	float cam_x, cam_y;
+	CCamera* cam = CCamera::GetInstance();
+	cam->GetCamPos(cam_x, cam_y);
+	if (((cam_x < x) && (x < cam_x + SCREEN_WIDTH)) && ((cam_y < y) && (y < cam_y)))
+		return true;
+	return false;
+}

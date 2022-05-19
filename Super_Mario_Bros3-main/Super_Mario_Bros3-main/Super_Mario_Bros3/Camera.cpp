@@ -48,6 +48,12 @@ void CCamera::SetBoundary(float w, float h)
 	boundary_top = h;
 }
 
+void CCamera::GetCamPos(float& x, float& y)
+{
+	x = cam_x;
+	y = cam_y;
+}
+
 CCamera* CCamera::GetInstance()
 {
 	if (__instance == NULL)
