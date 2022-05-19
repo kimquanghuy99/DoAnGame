@@ -222,6 +222,10 @@ void CPlayScene::Load()
 		if (line == "[OBJECTS]") {
 			section = SCENE_SECTION_OBJECTS; continue;
 		}
+		if (line == "[QUADTREE]") {
+			DebugOut(L"wuadtree");
+			section = SCENE_SECTION_QUADTREE; continue;
+		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
 
 		switch (section)
@@ -232,7 +236,6 @@ void CPlayScene::Load()
 		case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
 		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 		case SCENE_SECTION_QUADTREE: _ParseSection_QUADTREE(line); break;
-
 		}
 	}
 

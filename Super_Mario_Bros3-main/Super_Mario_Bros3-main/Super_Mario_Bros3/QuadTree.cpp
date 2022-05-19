@@ -80,7 +80,7 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 	int x = atoi(tokens[1].c_str());
 	int y = atoi(tokens[2].c_str());
 
-
+	DebugOut(L"Quadtree Object");
 
 	int object_type = atoi(tokens[0].c_str());
 
@@ -118,7 +118,7 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 	{
 		CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 		int add = 0;
-		obj->SetPosition((float)x, playscene->getMapheight() - (float)y);
+		obj->SetPosition((float)x, (float)y);
 		obj->SetAnimationSet(ani_set);
 		obj->SetOrigin((float)x, (float)y, obj->GetState());
 		Add(obj);
