@@ -216,11 +216,11 @@
 # type	x	y	ani_set_id	extra_settings per object type
 [OBJECTS]
 # === PARALLAX ===
-#43	0	289	43
+43	0	289	43
 # === BACKGROUND === (type, x, y, ani_set_id, width)
-#36	0	222	36	1608
+36	0	222	36	1608
 #SANDBACKGROUND (ANIMATED OBJECT)
-#39	344	85	39	2
+39	344	85	39	2
 # === MARCO ROSSI ===
 10	10	100	0	2
 # === FEET ===
@@ -230,9 +230,9 @@
 # === ANIMATED OBJECT ===
 # type	x	y	ani_set_id	ani_obj_id (type_id)
 #WAVE EFFECT 1
-#39	0	64	39	0
+39	0	64	39	0
 #WAVE EFFECT 2
-#39	0	40	39	1
+39	0	40	39	1
 
 #Conga
 2	200	109	3

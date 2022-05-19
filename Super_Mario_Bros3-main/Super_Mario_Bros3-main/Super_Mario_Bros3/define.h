@@ -47,5 +47,3 @@
 #define DISTANCE_TOP	0
 #define DISTANCE_RIGHT	0
 #define DISTANCE_BOTTOM	0
-#define CAM_X_BONUS 400
-#define CAM_Y_BONUS 500

@@ -120,7 +120,7 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 		int add = 0;
 		obj->SetPosition((float)x, (float)y);
 		obj->SetAnimationSet(ani_set);
-		//obj->SetOrigin((float)x, (float)y, obj->GetState());
+		obj->SetOrigin((float)x, (float)y, obj->GetState());
 		Add(obj);
 	}
 }

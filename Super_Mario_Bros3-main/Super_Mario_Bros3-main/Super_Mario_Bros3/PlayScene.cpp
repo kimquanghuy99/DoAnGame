@@ -223,7 +223,7 @@ void CPlayScene::Load()
 			section = SCENE_SECTION_OBJECTS; continue;
 		}
 		if (line == "[QUADTREE]") {
-			
+			DebugOut(L"wuadtree");
 			section = SCENE_SECTION_QUADTREE; continue;
 		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
@@ -251,28 +251,7 @@ void CPlayScene::Update(DWORD dt)
 	// We know that body is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 
-	CGame* game = CGame::GetInstance();
-
-	// Update camera to follow player
-	float cx, cy;
-	player->GetPosition(cx, cy);
-	game->SetCamPos(cx, cy);
-
 	vector<LPGAMEOBJECT> coObjects;
-
-	//quadtree->GetObjects(objects, (int)cx, (int)cy);
-
-	for (size_t i = 0; i < objects.size(); i++)
-	{
-		float x, y;
-		objects[i]->GetPosition(x, y);
-		if (!game->IsInCamera(x, y))//!objects[i]->GetisOriginObj()
-		{
-			objects[i]->SetActive(false);
-			objects.erase(objects.begin() + i);
-			i--;
-		}
-	}
 	for (size_t i = 1; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
@@ -282,6 +261,16 @@ void CPlayScene::Update(DWORD dt)
 	{
 		objects[i]->Update(dt, &coObjects);
 	}
+
+	// skip the rest if scene was already unloaded (body::Update might trigger PlayScene::Unload)
+	if (player == NULL) return;
+
+	// Update camera to follow body
+	float cx, cy;
+	player->GetPosition(cx, cy);
+
+	CGame* game = CGame::GetInstance();
+	CGame::GetInstance()->SetCamPos(cx,cy);
 }
 
 void CPlayScene::Render()

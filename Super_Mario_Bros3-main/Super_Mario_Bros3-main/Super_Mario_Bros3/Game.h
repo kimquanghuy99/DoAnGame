@@ -81,7 +81,7 @@ public:
 
 	void SetCamPos(float x, float y);
 	void SetBoundary(float w, float h);
-	bool IsInCamera(float x, float y);
+
 	static CGame* GetInstance();
 
 	~CGame();
