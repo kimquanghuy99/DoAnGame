@@ -51,11 +51,11 @@ void CBody::Render()
 		case BODY_STATE_SHOOT_RIGHT:
 			ani = BODY_ANI_DROP;
 			break;
-		case BODY_STATE_SHOOT_UP:
-			ani = BODY_ANI_DROP;
+		case BODY_STATE_SHOOT_UP_LEFT:
+			ani = BODY_ANI_SHOOT_UP;
 			break;
-		case BODY_STATE_SHOOT_DOWN:
-			ani = BODY_ANI_DROP;
+		case BODY_STATE_SHOOT_UP_RIGHT:
+			ani = BODY_ANI_SHOOT_UP;
 			break;
 	}
 	int alpha = 255;
@@ -91,12 +91,15 @@ void CBody::SetState(int state)
 	case BODY_STATE_SHOOT_RIGHT:
 		nx = 1;
 		break;
-	case BODY_STATE_SHOOT_UP:
+	case BODY_STATE_SHOOT_UP_LEFT:
+		nx = -1;
+		break;
+	case BODY_STATE_SHOOT_UP_RIGHT:
 		nx = 1;
 		break;
-	case BODY_STATE_SHOOT_DOWN:
-		nx = 1;
-		break;
+	//case BODY_STATE_SHOOT_DOWN:
+		//nx = 1;
+		//break;
 	}
 }
 

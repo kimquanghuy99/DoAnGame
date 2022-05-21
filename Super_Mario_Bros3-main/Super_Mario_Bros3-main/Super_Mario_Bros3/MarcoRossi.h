@@ -28,6 +28,8 @@
 #define MARCO_ROSSI_STATE_JUMP_LEFT				12
 #define MARCO_ROSSI_STATE_JUMP_RIGHT			13
 
+#define MARCO_ROSSI_STATE_AIM_UP_LEFT			14
+#define MARCO_ROSSI_STATE_AIM_UP_LEFT			15
 
 class CMarcoRossi : public CGameObject
 {

@@ -80,10 +80,10 @@ void CMarcoRossi::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				// jump on top >> kill Goomba and deflect a bit 
 				if (e->nx!=0)
 				{
-					if (goomba->GetState() != GOOMBA_STATE_DIE)
+					/*if (goomba->GetState() != GOOMBA_STATE_DIE)
 					{
 						goomba->SetState(GOOMBA_STATE_DIE);
-					}
+					}*/
 				}
 				else if (e->nx != 0)
 				{
@@ -120,7 +120,15 @@ void CMarcoRossi::SetState(int state)
 		ny = 0;
 		break;
 	case MARCO_ROSSI_STATE_STAND_LEFT:
-		body->SetState(BODY_STATE_IDLE_LEFT);
+		if (isAimingUp == true)
+		{
+			body->SetState(BODY_STATE_SHOOT_UP_LEFT);
+			DebugOut(L"true up");
+			isAimingUp == false;
+		}
+		else {
+			body->SetState(BODY_STATE_IDLE_LEFT);
+		}
 		feet->SetState(FEET_STATE_IDLE_LEFT);
 		vx = 0;
 		vy = 0;
@@ -130,26 +138,45 @@ void CMarcoRossi::SetState(int state)
 	case MARCO_ROSSI_STATE_STAND_RIGHT:
 		if (isAimingUp == true)
 		{
-			body->SetState(BODY_STATE_IDLE_LEFT);
-			DebugOut(L"aim up");
+			body->SetState(BODY_STATE_SHOOT_UP_RIGHT);
+			DebugOut(L"true up");
+			//isAimingUp == false;
 		}
 		else {
+			DebugOut(L"false");
 			body->SetState(BODY_STATE_IDLE_RIGHT);
-			feet->SetState(FEET_STATE_IDLE_RIGHT);
 		}
+		feet->SetState(FEET_STATE_IDLE_RIGHT);
 		vx = 0;
 		vy = 0;
 		ny = 0;
 		break;
 	case MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT:
-		body->SetState(BODY_STATE_WALKING_LEFT);
+		if(isAimingUp == true)
+		{
+			body->SetState(BODY_STATE_SHOOT_UP_LEFT);
+			DebugOut(L"true up");
+			//isAimingUp == false;
+		}
+		else {
+			body->SetState(BODY_STATE_WALKING_LEFT);
+		}
 		feet->SetState(FEET_STATE_WALKING_LEFT);
 		vx = -MARCO_ROSSI_WALKING_SPEED;
 		nx = -1;
 		ny = 0;
 		break;
 	case MARCO_ROSSI_STATE_NORMAL_MOVE_RIGHT:
-		body->SetState(BODY_STATE_WALKING_RIGHT);
+		if (isAimingUp == true)
+		{
+			body->SetState(BODY_STATE_IDLE_LEFT);
+			DebugOut(L"true up");
+			isAimingUp == false;
+		}
+		else {
+			body->SetState(BODY_STATE_WALKING_RIGHT);
+
+		}
 		feet->SetState(FEET_STATE_WALKING_RIGHT);
 		vx = MARCO_ROSSI_WALKING_SPEED;
 		nx = 1;

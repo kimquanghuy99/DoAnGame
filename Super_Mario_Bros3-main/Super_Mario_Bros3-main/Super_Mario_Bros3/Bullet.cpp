@@ -192,7 +192,7 @@ void BULLET::Render()
 			if (ani != -1)
 				animation_set->at(ani)->Render(x, y);
 		}
-		RenderBoundingBox();
+		//RenderBoundingBox();
 	}
 }
 
