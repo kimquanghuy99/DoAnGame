@@ -2,7 +2,6 @@
 #include <algorithm>
 #include "PlayScene.h"
 #include "MarcoRossi.h"
-#include "Goomba.h"
 
 BULLET::BULLET()
 {
@@ -91,23 +90,6 @@ void BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<CGoomba*>(e->obj)) // if e->obj is Goomba 
-			{
-				CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-
-				// jump on top >> kill Goomba and deflect a bit 
-				if (e->nx != 0)
-				{
-					if (goomba->GetState() != GOOMBA_STATE_DIE)
-					{
-						goomba->SetState(GOOMBA_STATE_DIE);
-					}
-				}
-				else if (e->nx != 0)
-				{
-
-				}
-			}
 			//if (!dynamic_cast<CBrick*>(e->obj))
 			//{
 			//	(e->obj)->setheath((e->obj)->Getheath() - SOPHIA_BULLET_DMG);
@@ -175,7 +157,7 @@ void BULLET::Render()
 			if (ani != -1)
 				animation_set->at(ani)->Render(x, y);
 		}
-		RenderBoundingBox();
+		//RenderBoundingBox();
 	}
 }
 
