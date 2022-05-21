@@ -104,6 +104,8 @@ void CMarcoRossi::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CMarcoRossi::Render()
 {
+	RenderBoundingBox();
+
 }
 
 void CMarcoRossi::Shoot()
