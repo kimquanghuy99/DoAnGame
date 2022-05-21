@@ -128,13 +128,15 @@ void CMarcoRossi::SetState(int state)
 		ny = 0;
 		break;
 	case MARCO_ROSSI_STATE_STAND_RIGHT:
-		body->SetState(BODY_STATE_IDLE_RIGHT);
 		if (isAimingUp == true)
 		{
-			body->SetState(MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT);
+			body->SetState(BODY_STATE_IDLE_LEFT);
 			DebugOut(L"aim up");
 		}
-		feet->SetState(FEET_STATE_IDLE_RIGHT);
+		else {
+			body->SetState(BODY_STATE_IDLE_RIGHT);
+			feet->SetState(FEET_STATE_IDLE_RIGHT);
+		}
 		vx = 0;
 		vy = 0;
 		ny = 0;
