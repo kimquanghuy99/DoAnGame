@@ -9,15 +9,15 @@ BULLET::BULLET()
 	nx = 0;
 }
 
-void BULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	if (state != BULLET_STATE_DIE) {
-		left = x;
-		top = y;
-		right = x + BULLET_BBOX_WIDTH;
-		bottom = y + BULLET_BBOX_HEIGHT;
-	}
-}
+//void BULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+//{
+	//if (state != BULLET_STATE_DIE) {
+	//	left = x;
+	//	top = y;
+	//	right = x + BULLET_BBOX_WIDTH;
+	//	bottom = y + BULLET_BBOX_HEIGHT;
+	//}
+//}
 
 void BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -51,7 +51,7 @@ void BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				isUsed = true;
 				x = player->x;
-				y = player->y;
+				y = player->y - 20;
 				if (player->GetisAimingUp())
 				{
 					//x = x + PLAYER_BIG_BBOX_WIDTH / 3;
@@ -119,10 +119,23 @@ void BULLET::CalcPotentialCollisions(
 		{
 			continue;
 		}
-		//if (dynamic_cast<Items*>(e->obj))
-		//{
-		//	continue;
-		//}
+		if (dynamic_cast<CGoomba*>(e->obj)) // if e->obj is Goomba 
+		{
+			CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+
+			// jump on top >> kill Goomba and deflect a bit 
+			if (e->nx != 0)
+			{
+				if (goomba->GetState() != GOOMBA_STATE_DIE)
+				{
+					goomba->SetState(GOOMBA_STATE_DIE);
+				}
+			}
+			else if (e->nx != 0)
+			{
+
+			}
+		}
 		if (e->t > 0 && e->t <= 1.0f)
 			coEvents.push_back(e);
 		else
@@ -159,6 +172,17 @@ void BULLET::Render()
 		}
 		//RenderBoundingBox();
 	}
+}
+
+void BULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+{
+	left = x;
+	top = y;
+
+
+	right = x + 20;
+	bottom = y + 29;
+
 }
 
 void BULLET::SetState(int state)
