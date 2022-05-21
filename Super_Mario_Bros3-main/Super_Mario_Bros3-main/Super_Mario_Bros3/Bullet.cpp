@@ -170,7 +170,7 @@ void BULLET::Render()
 			if (ani != -1)
 				animation_set->at(ani)->Render(x, y);
 		}
-		//RenderBoundingBox();
+		RenderBoundingBox();
 	}
 }
 
@@ -180,8 +180,8 @@ void BULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	top = y;
 
 
-	right = x + 20;
-	bottom = y + 29;
+	right = x + 30;
+	bottom = y + 30;
 
 }
 
