@@ -106,35 +106,6 @@ void CMarcoRossi::Render()
 {
 }
 
-void CMarcoRossi::Shoot()
-{
-	isShooting = true;
-	//CPlayScene* playscene = CPlayScene::GetInstance();
-	/*
-	switch (heightState)
-	{
-		case -1:
-			if (faceState == 1)
-				playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
-			else
-				if (faceState == 2)
-					playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
-				else
-					playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
-			break;
-		default:
-			if (faceState == 1)
-				playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
-			else
-				if (faceState == 2)
-					playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
-				else
-					playscene->AddObject(x, y, OBJECT_TYPE_BULLET);
-			break;
-		}
-	}
-	*/
-}
 
 void CMarcoRossi::SetState(int state)
 {
@@ -158,6 +129,11 @@ void CMarcoRossi::SetState(int state)
 		break;
 	case MARCO_ROSSI_STATE_STAND_RIGHT:
 		body->SetState(BODY_STATE_IDLE_RIGHT);
+		if (isAimingUp == true)
+		{
+			body->SetState(MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT);
+			DebugOut(L"aim up");
+		}
 		feet->SetState(FEET_STATE_IDLE_RIGHT);
 		vx = 0;
 		vy = 0;
@@ -188,7 +164,6 @@ void CMarcoRossi::GetBoundingBox(float& left, float& top, float& right, float& b
 	
 	right = x + 20;
 		bottom = y + 29;
-	
 }
 
 void CMarcoRossi::UpdatePosition()

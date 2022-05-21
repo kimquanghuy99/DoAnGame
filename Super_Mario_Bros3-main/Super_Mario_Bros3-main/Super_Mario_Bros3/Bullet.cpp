@@ -6,7 +6,7 @@
 BULLET::BULLET()
 {
 	SetState(BULLET_STATE_FLYING);
-	nx = 0;
+	nx = 1;
 }
 
 //void BULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -33,8 +33,34 @@ void BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	coEvents.clear();
 
 	// turn off collision when die 
-	if (state != BULLET_STATE_DIE)
-		CalcPotentialCollisions(coObjects, coEvents);
+	if (state != BULLET_STATE_DIE) {
+		for (UINT i = 0; i < coObjects->size(); i++)
+		{
+			LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
+			if (dynamic_cast<CMarcoRossi*>(e->obj))
+			{
+				continue;
+			}
+			if (dynamic_cast<CGoomba*>(e->obj)) // if e->obj is Goomba 
+			{
+				CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+
+				// jump on top >> kill Goomba and deflect a bit 
+				if (e->nx != 0)
+				{
+					if (goomba->GetState() != GOOMBA_STATE_DIE)
+					{
+						goomba->SetState(GOOMBA_STATE_DIE);
+					}
+				}
+			}
+			if (e->t > 0 && e->t <= 1.0f)
+				coEvents.push_back(e);
+			else
+				delete e;
+		}
+	}
+		//CalcPotentialCollisions(coObjects, coEvents);
 	else
 	{
 		isUsed = false;
@@ -131,10 +157,6 @@ void BULLET::CalcPotentialCollisions(
 					goomba->SetState(GOOMBA_STATE_DIE);
 				}
 			}
-			else if (e->nx != 0)
-			{
-
-			}
 		}
 		if (e->t > 0 && e->t <= 1.0f)
 			coEvents.push_back(e);
@@ -178,11 +200,8 @@ void BULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom
 {
 	left = x;
 	top = y;
-
-
 	right = x + 30;
 	bottom = y + 30;
-
 }
 
 void BULLET::SetState(int state)
@@ -194,7 +213,9 @@ void BULLET::SetState(int state)
 		vx = BULLET_STATE_DIE_SPEED;
 		vy = BULLET_STATE_DIE_SPEED;
 		break;
-
+	case BULLET_STATE_FLYING:
+		vx = BULLET_SPEED;
+		vy = 0;
 	}
 
 }

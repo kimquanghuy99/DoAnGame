@@ -355,7 +355,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_UP:
-		//player->SetFaceState(false);
+		//player->SetisAimingUp(false);
 		break;
 	case DIK_LEFT:
 		if (player->GetState() == MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT)
@@ -374,8 +374,10 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	CMarcoRossi* player = ((CPlayScene*)scence)->GetPlayer();
 	if (game->IsKeyDown(DIK_LEFT) && game->IsKeyDown(DIK_RIGHT))
 		return;
-	//if (game->IsKeyDown(DIK_LEFT));
-	//	player->SetState(MARCO_ROSSI_STATE_MOVE_LEFT);
+	//if (game->IsKeyDown(DIK_UP));
+	//player->SetisAimingUp(true);
+	//else if (game->IsKeyUp(DIK_UP))
+	//	player->SetisAimingUp(false);
 	//if (game->IsKeyDown(DIK_RIGHT));
 	//	player->SetState(MARCO_ROSSI_STATE_MOVE_RIGHT);
 }

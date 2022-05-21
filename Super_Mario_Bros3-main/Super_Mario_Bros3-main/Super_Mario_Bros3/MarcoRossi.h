@@ -63,9 +63,6 @@ public:
 	void SetState(int state);
 	int GetState() { return this->state; }
 
-	void Shoot();
-	bool isShoot() { return this->isShooting; }
-
 	void SetNy(int _ny) { this->ny = _ny; }
 	int GetNy() { return ny; }
 
