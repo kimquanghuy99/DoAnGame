@@ -246,6 +246,9 @@
 2	320	109	3
 #Bullet
 999	10	200	3000
+999	10	200	3000
+999	10	200	3000
+999	10	200	3000
 
 # --- SCENE PORTAL ----
 # type	l	t	ani_set_id	r	b	scene_id

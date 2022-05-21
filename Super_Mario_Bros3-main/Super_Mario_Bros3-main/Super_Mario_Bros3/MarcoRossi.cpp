@@ -205,15 +205,6 @@ void CMarcoRossi::UpdatePosition()
 		feet->SetPosition(x + 9, y - 20);
 		break;
 	case MARCO_ROSSI_STATE_STAND_RIGHT:
-		if (isShooting == true)
-		{
-			CGameObject* obj = NULL;
-			obj->SetAnimationSet(ani_set);
-			obj = new CBullet(200, 100);
-
-			scene->AddObject(obj);
-		}
-		isShooting = false;
 		feet->SetPosition(x + 3, y - 20);
 		break;
 	case MARCO_ROSSI_STATE_NORMAL_MOVE_LEFT:

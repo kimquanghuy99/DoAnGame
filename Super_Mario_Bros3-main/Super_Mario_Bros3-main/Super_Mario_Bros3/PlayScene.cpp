@@ -3,7 +3,7 @@
 
 #include "PlayScene.h"
 #include "Utils.h"
-
+#include "Bullet.h"
 using namespace std;
 
 CPlayScene* CPlayScene::__instance = NULL;
@@ -176,11 +176,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj = new CPortal(x, y, r, b, scene_id);
 		}
 		break;
-		//case OBJECT_TYPE_BULLET:
-		//{
-		//	obj = new CBullet(x, y);
-		//}
-		//break;
+		case OBJECT_TYPE_BULLET:
+		{
+			obj = new BULLET();
+		}
+		break;
 		default:
 		{
 			DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
@@ -315,9 +315,6 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	/*case DIK_SPACE:
 		player->SetState(MARCO_ROSSI_STATE_STAND_RIGHT);
 		break;*/
-	case DIK_A:
-		player->Shoot();
-		break;
 	case DIK_LEFT:
 		if(player->GetState() == MARCO_ROSSI_STATE_NORMAL_MOVE_RIGHT)
 			player->SetState(MARCO_ROSSI_STATE_STAND_RIGHT);
@@ -336,8 +333,18 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 			else
 				player->SetState(MARCO_ROSSI_STATE_NORMAL_MOVE_RIGHT);
 		break;
+	case DIK_SPACE:
+		if (!player->GetIsJumping())
+		{
+			player->SetState(MARCO_ROSSI_STATE_NORMAL_MOVE_RIGHT);// MARCO_ROSSI_SOPHIA_STATE_JUMP
+			player->SetIsJumping(true);
+		}
+		break;
+	case DIK_A:
+		player->SetisFiring(true);
+		break;
 	case DIK_UP:
-		player->SetNy(1);
+		player->SetisAimingUp(true);
 		break;
 	}
 }
@@ -347,9 +354,6 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 	CMarcoRossi* player = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
-	case DIK_A:
-		//player->Shoot(false);
-		break;
 	case DIK_UP:
 		//player->SetFaceState(false);
 		break;
@@ -368,8 +372,6 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
 	CGame* game = CGame::GetInstance();
 	CMarcoRossi* player = ((CPlayScene*)scence)->GetPlayer();
-	if (game->IsKeyDown(DIK_A));
-		//player->Shoot(true);
 	if (game->IsKeyDown(DIK_LEFT) && game->IsKeyDown(DIK_RIGHT))
 		return;
 	//if (game->IsKeyDown(DIK_LEFT));
